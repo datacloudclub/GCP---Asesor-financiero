@@ -84,11 +84,11 @@ De las estrategias empleadas en el presente proyecto, podemos destacar el potenc
 * De esta manera podemos analizar el consumo eventual que genera operar utilizando GCP.
 * Un objetivo de este proyecto es la reducción de costos probando diferentes alternativas.
 * Para acceder a este beneficio, es necesario disponer de una tarjeta de crédito o débito habilitada.
-* No se genera ningún cargo en la tarjeta, pero durante el período de prueba no se puede eliminar la tarjeta de la cuenta, de lo contrario, no se puede seguir usando el período de rpueba.
+* No se genera ningún cargo en la tarjeta, pero durante el período de prueba no se puede eliminar la tarjeta de la cuenta, de lo contrario, no se puede seguir usando el período de prueba.
 * La cuenta de GCP se paraliza automáticamente pasados los 90 días o si el saldo llega a US$ 0.
 * Es decir, no hay problema si olvidamos servicios encendidos. Todos ellos serán inhabilitados llegado ese punto.
 * Todavía podemos acceder a la información relacionada con el proyecto y se conserva todo aquello que está incluido en la capa gratuita de GCP.
-* Se pueden asignar todos los proyectos a una nueva cuenta de facturación (por ejemplo, una cuenta que disponga saldo del período de prueba) para poder proseguir con el uso de los servicios.
+* Se pueden asignar todos los proyectos a una otra cuenta de facturación (por ejemplo, una cuenta que disponga saldo del período de prueba) para poder proseguir con el uso de los servicios.
 
 ## Requisitos
 
