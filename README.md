@@ -34,11 +34,11 @@ Se parte desde una máquina virtual que nos permita conectarnos de manera remota
 
 Además, debido a que el presente proyecto tiene como fuente de ingesta de datos una biblioteca de Python, se cree conveniente y de bajo costo el uso de una máquina virtual para extraer información y hacer webscraping para analizar las empresas con mayor valuación de mercado.
 
-Al mismo tiempo, al generar un despliegue de principio a fin en la nube, nos facilita mucho la interacción entre los distintos servicios dado que todas las instancias de análisis y transformación de la información ocurren dentro de un mismo entorno. 
+Al mismo tiempo, al generar un despliegue de principio a fin en la nube, nos facilita mucho la interacción entre los distintos servicios dado que todas las instancias de análisis y transformación de la información ocurren dentro de un mismo entorno.
 
-En este sentido, ofreceremos un producto de Machine Learning aprovechando la máquina virtual y la velocidad de BigQuery para procesar la información de manera que podamos evaluar tendencias del mercado burstil. 
+En este sentido, ofreceremos un producto de Machine Learning aprovechando la máquina virtual y la velocidad de BigQuery para procesar la información de manera que podamos evaluar tendencias del mercado burstil.
 
-De las estrategias empleadas en el presente proyecto, podemos destacar el potencial de información que se puede extraer para analizar y la funcionalidad en la nube para elaborar un producto que provea de información actualizada diariamente. 
+De las estrategias empleadas en el presente proyecto, podemos destacar el potencial de información que se puede extraer para analizar y la funcionalidad en la nube para elaborar un producto que provea de información actualizada diariamente.
 
 ## Descripción de las tecnologías utilizadas
 
@@ -74,8 +74,6 @@ De las estrategias empleadas en el presente proyecto, podemos destacar el potenc
 
 [![Pillow](https://img.shields.io/badge/Pillow-Biblioteca_de_Python-blue?style=flat-square&logo=pillow)](https://python-pillow.org/) - Biblioteca de imágenes para Python.
 
-
-
 ## Aclaración sobre posibles gastos
 
 * Cada cuenta de Gmail, cuenta con un período de prueba de 90 días y un saldo de US$300 para usar en GCP.
@@ -100,7 +98,7 @@ De las estrategias empleadas en el presente proyecto, podemos destacar el potenc
 
 ### Creación de cuenta de Gmail y activación de período de prueba
 
-* Ver la siguiente guía: [Cómo acceder a la prueba gratituita con un crédito de US$300 para usar GCP](./Guías/como_acceder.md)
+* Ver la siguiente guía: [Cómo acceder a la prueba gratituita con un crédito de US$300 para usar GCP](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_acceder.md#tabla-de-contenido)
 
 ### Compartir el saldo del período de prueba con otras personas
 
