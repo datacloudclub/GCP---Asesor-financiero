@@ -6,27 +6,39 @@ Generar una propuesta de valor a través de la ingesta de datos históricos y en
 
 Para ello se implementará una infraestructura en la nube utilizando:
 
-1. máquina virtual para la ingesta de datos utilizando la biblioteca Yfinance en Python
-2. almacenamiento en Cloud Storage para alojar los datos en crudo
+1. máquina virtual para la ingesta de datos utilizando la biblioteca Yfinance en Python,
+2. almacenamiento en Cloud Storage para alojar los datos en crudo,
 3. procesamiento de la información almacenada mediante Cloud Functions para
-4. alimentar el data warehouse BigQuery
-5. utilizar SQL para hacer consultas a BigQuery
-6. visualización de data en Looker y conexión con PowerBI
-7. modelos de machine learning a partir de la información recabada
+4. alimentar el data warehouse BigQuery,
+5. utilizar SQL para hacer consultas a BigQuery,
+6. visualización de data en Looker y conexión con PowerBI,
+7. modelos de machine learning a partir de la información recabada, y
+8. mantener la base de datos actualizada diariamente.
 
 ## Tabla de contenidos
 
 * [Objetivo](#objetivo)
 * [Introducción](#introducción)
 * [Descripción de las tecnologías utilizadas](#Descripción-de-las-tecnologías-utilizadas)
-* Prerequisitos
+* [Aclaración sobre posibles gastos](#Aclaración-sobre-posibles-gastos)
+* [Requisitos]()
+* Paso 1
+  * [Creación de cuenta de Gmail y activación de período de prueba](#creación-de-cuenta-de-Gmail-y-activación-de-período-de-prueba)
+  * [Compartir el saldo del período de prueba con otras personas](#compartir-el-saldo-del-período-de-prueba-con-otras-personas)
 
 ## Introducción
 
-El presente proyecto utiliza una máquina virtual en GCP para crear un ambiente de trabajo en Python y un servidor para generar un entorno de Jupyter. El beneficio de contar con una máquina virtual directamente en la nube, nos permite solucionar varios inconvenientes:
+El presente proyecto tiene como objetivo familiarizar con las herramientas elementales de Google Cloud Platform para el desarrollo de una arquitectura de carga y gestión de datos.
 
-1. Primero que nada, si no disponemos de una buena computadora, difícilmente podamos utilizarla para abrir o producir grandes cantidades de información.
-2. Segundo, ya nos encontramos trabajando dentro de la propia plataforma. Conectar con otros servicios se convierte en una tarea mucho más sencilla porque todo el proceso se lleva a cabo en la nube, queriendo decir que a medida que tengamos mayor conocimiento de las herramientas disponibles más fácil será adaptar nuestra infraestructura existente y generar propuestas que agreguen valor.
+Se parte desde una máquina virtual que nos permita conectarnos de manera remota para aprovechar al máximo el período de prueba y entender cómo funciona la computación en la nube.
+
+Además, debido a que el presente proyecto tiene como fuente de ingesta de datos una biblioteca de Python, se cree conveniente y de bajo costo el uso de una máquina virtual para extraer información y hacer webscraping para analizar las empresas con mayor valuación de mercado.
+
+Al mismo tiempo, al generar un despliegue de principio a fin en la nube, nos facilita mucho la interacción entre los distintos servicios dado que todas las instancias de análisis y transformación de la información ocurren dentro de un mismo entorno. 
+
+En este sentido, ofreceremos un producto de Machine Learning aprovechando la máquina virtual y la velocidad de BigQuery para procesar la información de manera que podamos evaluar tendencias del mercado burstil. 
+
+De las estrategias empleadas en el presente proyecto, podemos destacar el potencial de información que se puede extraer para analizar y la funcionalidad en la nube para elaborar un producto que provea de información actualizada diariamente. 
 
 ## Descripción de las tecnologías utilizadas
 
@@ -62,4 +74,34 @@ El presente proyecto utiliza una máquina virtual en GCP para crear un ambiente 
 
 [![Pillow](https://img.shields.io/badge/Pillow-Biblioteca_de_Python-blue?style=flat-square&logo=pillow)](https://python-pillow.org/) - Biblioteca de imágenes para Python.
 
-## Prerequisitos
+
+
+## Aclaración sobre posibles gastos
+
+* Cada cuenta de Gmail, cuenta con un período de prueba de 90 días y un saldo de US$300 para usar en GCP.
+* Durante este período, no se genera ningún tipo de cargo.
+* El uso por los servicios de GCP generan gastos que son absorbidos por el saldo de US$300.
+* De esta manera podemos analizar el consumo eventual que genera operar utilizando GCP.
+* Un objetivo de este proyecto es la reducción de costos probando diferentes alternativas.
+* Para acceder a este beneficio, es necesario disponer de una tarjeta de crédito o débito habilitada.
+* No se genera ningún cargo en la tarjeta, pero durante el período de prueba no se puede eliminar la tarjeta de la cuenta, de lo contrario, no se puede seguir usando el período de rpueba.
+* La cuenta de GCP se paraliza automáticamente pasados los 90 días o si el saldo llega a US$ 0.
+* Es decir, no hay problema si olvidamos servicios encendidos. Todos ellos serán inhabilitados llegado ese punto.
+* Todavía podemos acceder a la información relacionada con el proyecto y se conserva todo aquello que está incluido en la capa gratuita de GCP.
+* Se pueden asignar todos los proyectos a una nueva cuenta de facturación (por ejemplo, una cuenta que disponga saldo del período de prueba) para poder proseguir con el uso de los servicios.
+
+## Requisitos
+
+* Disponer de una cuenta de facturación bajo período de prueba o activada.
+* Tarjeta bancaria (crédito o débito)
+* Un compañero bondadoso con una cuenta de facturación bajo período de prueba o activada que quiera compartir el saldo.
+
+## Paso 1
+
+### Creación de cuenta de Gmail y activación de período de prueba
+
+* Ver la siguiente guía: [Cómo acceder a la prueba gratituita con un crédito de US$300 para usar GCP](./Guías/como_acceder.md)
+
+### Compartir el saldo del período de prueba con otras personas
+
+* Ver la siguiente guía: [Cómo habilitar a otros compañeros a usar mi cuenta de facturación para que podamos trabajar colaborativamente sin que tengan que activar el período de prueba gratuito]()
