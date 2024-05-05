@@ -23,17 +23,28 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * [Aclaración sobre posibles gastos](#Aclaración-sobre-posibles-gastos)
 * [Requisitos](#Requisitos)
 * Paso 1
+
   * [Creación de cuenta de Gmail y activación de período de prueba](#creación-de-cuenta-de-Gmail-y-activación-de-período-de-prueba)
   * [Compartir el saldo del período de prueba con otras personas](#compartir-el-saldo-del-período-de-prueba-con-otras-personas)
 * Paso 2
-  * Creación de la máquina virtual
-  * Configurando la nueva máquina virtual
-    * Nombre, región y zona
+
+  * Creación de una instancia de máquina virtual
+  * Configurando la nueva instancia
+  * * Nombre, región y zona
     * Serie y tipo de máquina
     * Disco duro y sistema operativo
     * Configuraciones avanzadas de dirección IPv4 externa estática
-  * Acceso remoto a la máquina virtual desde la Terminal y VSC
+    * Finalizar la configuración y crear la instancia
+* Paso 3
+
+  * Apagar una instancia
+  * Modificar una instancia
+  * Eliminar una instancia
+  * Iniciar una instancia
+* Paso 4
+
   * Instalación del entorno de Anaconda en la máquina virtual
+  * Acceso remoto a la instancia desde la Terminal y VSC
 
 ## Introducción
 
@@ -113,9 +124,11 @@ De las estrategias empleadas en el presente proyecto, podemos destacar el potenc
 
 * Ver la siguiente guía: [Cómo habilitar a otros compañeros a usar mi cuenta de facturación para que podamos trabajar colaborativamente sin que tengan que activar el período de prueba gratuito]()
 
+[volver a la Tabla de contenidos]( #tabla-de-contenidos)
+
 ## Paso 2
 
-### Creación de la máquina virtual
+### Creación de una instancia de máquina virtual
 
 Podemos ingresar desde la Consola de GCP: [http://console.cloud.google.com](http://console.cloud.google.com).
 
@@ -176,7 +189,7 @@ Para aprovechar el crédito de prueba, podemos elegir cualquiera.
 
 ![1714888791751](image/README/1714888791751.png)
 
-Nótese como al elegir distinto tipo de máquina, cómo varía el precio. 
+Nótese como al elegir distinto tipo de máquina, cómo varía el precio.
 
 Tener en cuenta que el costo generado por la máquina virtual es mientras se encuentre encendida. Si la máquina virtual está apagada (se puede prender y apagar a voluntad) no genera gastos, pero el disco rígido asociado al ser persistente (que no se borra cuando se apaga la máquina sino que persiste) si genera gastos como figura en la siguiente imagen:
 
@@ -223,7 +236,7 @@ Para asignarnos una dirección IP externa fija, desplegamos Opciones avanzadas, 
 
 ![1714889815969](image/README/1714889815969.png)
 
-Buscamos donde dice Interfaces de red y desplegamos:
+Buscamos donde dice Interfaces de red y desplegamos "default":
 
 ![1714889832192](image/README/1714889832192.png)
 
@@ -234,3 +247,84 @@ Casi en el fondo encontramos la dirección IPv4 externa, por definición es Efí
 Haciendo click en dirección IPv4 externa podemos encontrar la opción para "Reservar dirección IP externa estática" para que sea fija.
 
 ![1714889866987](image/README/1714889866987.png)
+
+Al hacer click en "Reservar Dirección IP Externa Estática, veremos el siguiente recuadro donde debemos asignar nombre a la dirección de IP reservada:
+
+![1714944950387](image/README/1714944950387.png)
+
+### Finalizar la configuración y crear la instancia
+
+Antes de finalizar, podemos revisar el prespuesto estimado teniendo en cuenta si estuviese la instancia siempre encendida y a plena capacidad de consumo:
+
+Siempre es aconsejable tener en cuenta la página oficial con respecto a los precios: [Página de precios de Compute Engine](https://cloud.google.com/compute/all-pricing)
+
+![1714945247738](image/README/1714945247738.png)
+
+Para finalizar podemos hacer click en "Crear" para crear la instancia.
+
+![1714945097604](image/README/1714945097604.png)
+
+¡Felicitaciones! Hemos creado una instancia de máquina virtual.
+
+![1714945418784](image/README/1714945418784.png)
+
+Nótese la siguiente configuración de la instancia (este es mi ejemplo, en su caso serán otros valores).
+
+* **Dirección IP interna**: 10.128.0.5
+* **Dirección IP externa**: 34.135.38.214
+
+Haciendo click en el botón **SSH**, se inicia en una ventana nueva la terminar para acceder a la instancia creada.
+
+## Paso 3
+
+### Apagar una instancia
+
+Para apagar una instancia y así prevenir el consumo y gasto por parte de una instancia de máquina virtual, debemos seleccionar la instancia que queremos detener:
+
+![1714945793544](image/README/1714945793544.png)
+
+Y apretamos en la opción de "Detener" para detener la instancia.
+
+Recibimos el siguiente recordatorio, mientras la instancia de VM esté apagada, no generará cargos. Pero sí generarán cargos, los discos persistentes (en nuestro caso el disco de 30GB donde está instalado el sistema operativo) y las direcciones IP externas estáticas, si hubiera.
+
+![1714945839201](image/README/1714945839201.png)
+
+Hacemos click en "Detener" para detener la instancia.
+
+![1714946499457](image/README/1714946499457.png)
+
+El Estado en forma de cuadrado blanco en un círculo gris (a diferencia del tilde verde) implica que la instancia está detenida.
+
+La dirección IP externa al no ser estática desaparece. Si hubiesemos configurado una dirección de IP externa estática, detenida la instancia, todavía permanecería la IP externa al igual que la interna.
+
+Mientras la instancia esté detenida, no es posible acceder a ella vía SSH.
+
+Algunas modificaciones en su configuración y la eliminación de la instancia, ambas requieren que la instancia esté detenida.
+
+### Modificar una instancia
+
+Para modificar una instancia, basta hacer click sobre su nombre:
+
+![1714946870801](image/README/1714946870801.png)
+
+Allí accedemos a las propiedades de la instancia:
+
+![1714946923803](image/README/1714946923803.png)
+
+Y haciendo click sobre el lapiz "Editar" vamos a poder editar la configuración de la instancia:
+
+![1714946974981](image/README/1714946974981.png)
+
+Aquí lo único que no vamos a poder cambiar es la zona y región de la instancia. Luego desde el nombre, serie de computadora, capacidad de disco persistente, sistema opertativo, vamos a poder modificar aquí una vez creada la instancia.
+
+### Eliminar una instancia
+
+Para eliminar una instancia, la misma debe estar detenida. Seleccionamos la instancia que deseamos eliminar:
+
+![1714947078647](image/README/1714947078647.png)
+
+Hacemos click sobre el botón "Borrar" y recibimos la siguiente advertencia:
+
+![1714947142766](image/README/1714947142766.png)
+
+Al hacer click sobre "Borrar" comenzará la eliminación de la instancia y, dependiendo de la configuración inicial, también eliminará el disco asociado a la misma.
