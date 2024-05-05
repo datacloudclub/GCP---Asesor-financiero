@@ -21,10 +21,19 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * [Introducción](#introducción)
 * [Descripción de las tecnologías utilizadas](#Descripción-de-las-tecnologías-utilizadas)
 * [Aclaración sobre posibles gastos](#Aclaración-sobre-posibles-gastos)
-* [Requisitos]()
+* [Requisitos](#Requisitos)
 * Paso 1
   * [Creación de cuenta de Gmail y activación de período de prueba](#creación-de-cuenta-de-Gmail-y-activación-de-período-de-prueba)
   * [Compartir el saldo del período de prueba con otras personas](#compartir-el-saldo-del-período-de-prueba-con-otras-personas)
+* Paso 2
+  * Creación de la máquina virtual
+  * Configurando la nueva máquina virtual
+    * Nombre, región y zona
+    * Serie y tipo de máquina
+    * Disco duro y sistema operativo
+    * Configuraciones avanzadas de dirección IPv4 externa estática
+  * Acceso remoto a la máquina virtual desde la Terminal y VSC
+  * Instalación del entorno de Anaconda en la máquina virtual
 
 ## Introducción
 
@@ -103,3 +112,125 @@ De las estrategias empleadas en el presente proyecto, podemos destacar el potenc
 ### Compartir el saldo del período de prueba con otras personas
 
 * Ver la siguiente guía: [Cómo habilitar a otros compañeros a usar mi cuenta de facturación para que podamos trabajar colaborativamente sin que tengan que activar el período de prueba gratuito]()
+
+## Paso 2
+
+### Creación de la máquina virtual
+
+Podemos ingresar desde la Consola de GCP: [http://console.cloud.google.com](http://console.cloud.google.com).
+
+![1714888020989](image/README/1714888020989.png)
+
+En el botón de tres líneas horizontales de la parte superior izquierda vamos a encontrar el Menú de Navegación por los servicios:
+
+![1714888108118](image/README/1714888108118.png)
+
+Al final de la lista encontraremos la opción de ver todos los productos por si Compute Engine no aparece en la lista.
+
+![1714888153432](image/README/1714888153432.png)
+
+Seleccionamos Compute Engine:
+
+![1714888192335](image/README/1714888192335.png)
+
+La primera vez que intentemos ingresar en nuestro proyecto, deremos habilitar la API del servicio de Compute Engine para poder hacer uso de todas sus funcionalidades y crear una máquina virtual.
+
+![1714888294318](image/README/1714888294318.png)
+
+Una vez que se encuentre habilitada la API, vamos a poder utilizar el servicio.
+
+![1714888331527](image/README/1714888331527.png)
+
+Dentro de Compute Engine, en Instancias de VM que es el servicio que se muestra de forma predeterminada, hacemos click sobre "Crear Instancia" para crear una nueva máquina virtual.
+
+### Configurando la nueva máquina virtual
+
+#### Nombre, región y zona
+
+La máquina virtual puede ser modificada posteriormente en cuanto a la cantidad de procesamiento y memoria que deseemos, la cantidad de memoria en el disco rígido asociado a ella, la configuración de la red e incluso su nombre.
+
+Pero la elección de la región y la zona no puede ser modificada una vez creada la máquina virtual.
+
+Elegimos:
+
+* **Región**: us-central1 (Iowa)
+* **Zona**: us-central1-a
+
+![1714888500332](image/README/1714888500332.png)
+
+El motivo de esta elección es que todos los servicios de GCP funcionan en una zona. No todos los servicios están disponibles en todas las zonas, como por ejemplo sucede con Sudamérica San Pablo o Santiago.
+
+De manera que si queremos hacer uso de todos los servicios, deberemos elegir una zona donde estén todos disponibles. Además los procesos se llevan a cabo de manera remota. Por lo tanto, la interconexión entre los servicios en la nube se hará íntegramente en Iowa.
+
+#### Serie y tipo de máquina
+
+La diferencia entre series depende de la cantidad de núcleos, la cantidad de memoria RAM y la potencia de las tarjetas gráficas asociadas a la máquina virtual.
+
+En otras palabras, el precio que se paga por la máquina virtual, depende de la potencia que necesitemos.
+
+De todas maneras, se puede modificar esta cantidad en cualquier momento posteriormente a su creación.
+
+Elegimos la máquina E2 de tipo económico, es la Serie incluída en la capa gratuita.
+
+Para aprovechar el crédito de prueba, podemos elegir cualquiera.
+
+![1714888791751](image/README/1714888791751.png)
+
+Nótese como al elegir distinto tipo de máquina, cómo varía el precio. 
+
+Tener en cuenta que el costo generado por la máquina virtual es mientras se encuentre encendida. Si la máquina virtual está apagada (se puede prender y apagar a voluntad) no genera gastos, pero el disco rígido asociado al ser persistente (que no se borra cuando se apaga la máquina sino que persiste) si genera gastos como figura en la siguiente imagen:
+
+![1714889031453](image/README/1714889031453.png)
+
+En cuanto al tipo de máquina, el tipo e2-micro está incluido en la capa gratuita. Pero para el presente ejemplo usaremos una e2-medium.
+
+![1714889057841](image/README/1714889057841.png)
+
+#### Disco duro y sistema operativo
+
+Para cambiar el sistema operativo y el tamaño del disco, hacemos click en el botón "Cambiar"
+
+![1714889364292](image/README/1714889364292.png)
+
+Elegimos la siguiente configuración:
+
+![1714889436209](image/README/1714889436209.png)
+
+* **Sistema operativo:** Ubuntu
+* **Versión:** 24.04 LTS (la versión más reciente, también se puede probar la 20, 22, 23)
+* **Tipo de disco de arranque:** disco persistente equilibrado
+* **Tamaño (GB):** 30
+
+Hacemos click en seleccionar para cerrar la ventana y confirmamos que los cambios fueron realizados.
+
+![1714889563673](image/README/1714889563673.png)
+
+#### Configuraciones avanzadas de dirección IPv4 externa estática
+
+Para el presente ejemplo no vamos a introducir más cambios con lo que podemos hacer click en "Crear".
+
+Pero vale notar una configuración extra que puede ser de utilidad y comodidad. Puede ser modificada en cualquier momento.
+
+Cada máquina virtual funciona con una dirección de IP interno de GCP, y una dirección de IP externa donde podemos conectarnos a ella vía remota.
+
+La asignación de la dirección de IP es automática por ser "Efímera" es decir, que nos reserva una dirección IP global mientras la máquina esté encendida, pero al ser apagada, y luego reiniciada, la dirección de IP externa probablemente sea distinta.
+
+Para reservar una dirección IP única para nosotros, GCP nos ofrece la creación de una IP personal (el costo es muy bajo, de US$ 0,10 por día).
+
+![1714889638536](image/README/1714889638536.png)
+
+Para asignarnos una dirección IP externa fija, desplegamos Opciones avanzadas, y luego en Herramientas de redes:
+
+![1714889815969](image/README/1714889815969.png)
+
+Buscamos donde dice Interfaces de red y desplegamos:
+
+![1714889832192](image/README/1714889832192.png)
+
+Casi en el fondo encontramos la dirección IPv4 externa, por definición es Efímera.
+
+![1714889854827](image/README/1714889854827.png)
+
+Haciendo click en dirección IPv4 externa podemos encontrar la opción para "Reservar dirección IP externa estática" para que sea fija.
+
+![1714889866987](image/README/1714889866987.png)
