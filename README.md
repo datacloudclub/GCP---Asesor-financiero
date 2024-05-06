@@ -22,53 +22,49 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * [Descripción de las tecnologías utilizadas](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#descripci%C3%B3n-de-las-tecnolog%C3%ADas-utilizadas)
 * [Aclaración sobre posibles gastos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#aclaraci%C3%B3n-sobre-posibles-gastos)
 * [Requisitos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#requisitos)
-
 * Paso 1
 
   * [Creación de cuenta de Gmail y activación de período de prueba](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-cuenta-de-gmail-y-activaci%C3%B3n-de-per%C3%ADodo-de-prueba)
   * [Compartir el proyecto con otras personas](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#compartir-el-proyecto-con-otras-personas)
-
 * Paso 2
 
   * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
-
 * Paso 3
 
   * Instalación de gcloud CLI
   * Conexión remota mediante SSH con la Terminal
   * Conexión remota mediante SSH con VSC
-
 * Paso 4
-  
-  * Instalación del entorno de Anaconda en la instancia
 
+  * Instalación del entorno de Anaconda en la instancia
 * Paso 5
 
   * Usar un Jupyter Server para comenzar a trabajar con Python
-
 * Paso 6
 
   * Webscraping para obtener las companías de mayor capitalización
-
 * Paso 7
 
   * Cómo utilizar la biblioteca Yfinance
-
 * Paso 8
 
   * Conectando desde Python a BigQuery para tranferir la información recabada a la base de datos
-
 * Paso 9
 
   * Uso de comandos SQL y de Bq para realizar queries a BigQuery
-
 * Paso 10
+
+  * Conexión de BigQuery con Looker y PowerBI
+
+* Paso 11
 
   * Utilizar Cloud Functions para actualizar la base de datos diariamente
-
-* Paso 10
+* Paso 12
 
   * Desplegar herramientas de Machine Learning en BigQuery con BigqueryML
+* Paso 13
+
+  * Desplegar herramientas de Machine Learning en Python usando la información en BigQuery
 
 ## Introducción
 
@@ -153,6 +149,8 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 ## Paso 1
 
+El primer paso es contar con un proyecto asociado a una cuenta de facturación que nos permita utilizar los recursos de GCP.
+
 ### Creación de cuenta de Gmail y activación de período de prueba
 
 * Ver la siguiente guía: [Cómo acceder a la prueba gratituita con un crédito de US$300 para usar GCP](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_acceder.md#c%C3%B3mo-acceder-a-la-prueba-gratituita-con-un-cr%C3%A9dito-de-us300-para-usar-gcp)
@@ -164,6 +162,8 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
 ## Paso 2
+
+El segundo paso es la creación de una instancia de máquina virtual para poder interactuar con ella y trabajar de manera remota.
 
 ### Creación de una instancia de máquina virtual
 
@@ -184,5 +184,20 @@ Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instan
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
 ## Paso 3
+
+El tercer paso es conectarnos de manera remota a la instancia de VM para poder trabajar en ella.
+
+Para ello es necesario descargarse lo siguiente:
+
+* Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para conectarnos a la cuenta de GCP desde la Terminal: [Instala Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk?hl=es-419).
+
+Para más información acerca de la instalación de Gcloud CLI, referirse a la siguiente guía: [Descarga e instalación de Gcloud CLI para conectarme de manera remota a los servicios en la nube](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/gcloud_cli_install.md).
+
+Y las siguientes extensiones para Visual Studio Code:
+
+* [Remote - SSH para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
+* [Remote - SSH: editor de archivos de configuración para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
+* [Remote Explorer para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
+
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
