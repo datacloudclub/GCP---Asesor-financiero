@@ -58,6 +58,8 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 * Conexión con herramientas de visualización.
 * Propuesta de valor con Machine Learning en BigQuery con BigQueryML y en Python con las APIs y Frameworks de ML.
 
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
 ## Descripción de las tecnologías utilizadas
 
 [![VM](https://img.shields.io/badge/VM-Plataforma_de_Google_Cloud-blue?style=flat-square&logo=google-cloud)](https://cloud.google.com/compute/) - Máquina virtual para ejecutar aplicaciones.
@@ -88,9 +90,7 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 [![Pillow](https://img.shields.io/badge/Pillow-Biblioteca_de_Python-blue?style=flat-square&logo=pillow)](https://python-pillow.org/) - Biblioteca de imágenes para Python.
 
-
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
-
 
 ## Aclaración sobre posibles gastos
 
@@ -106,9 +106,7 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 * Todavía podemos acceder a la información relacionada con el proyecto y se conserva todo aquello que está incluido en la capa gratuita de GCP.
 * Se pueden asignar todos los proyectos a una otra cuenta de facturación (por ejemplo, una cuenta que disponga saldo del período de prueba) para poder proseguir con el uso de los servicios.
 
-
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
-
 
 ## Requisitos
 
@@ -116,7 +114,6 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 * Tarjeta bancaria (crédito o débito)
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
-
 
 ## Paso 1
 
@@ -128,9 +125,7 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 * Ver la siguiente guía: [Cómo compartir mi proyecto con otras personas](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/uso_compartido_proyecto.md)
 
-
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
-
 
 ## Paso 2
 
@@ -150,12 +145,8 @@ Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instan
 * **Tipo de disco de arranque:** disco persistente equilibrado
 * **Tamaño (GB):** 30
 
-
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
-
 ## Paso 3
-
-
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
