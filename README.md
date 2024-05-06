@@ -55,7 +55,6 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * Paso 10
 
   * Conexión de BigQuery con Looker y PowerBI
-
 * Paso 11
 
   * Utilizar Cloud Functions para actualizar la base de datos diariamente
@@ -75,6 +74,10 @@ Se parte desde una máquina virtual aprovechando los contenidos del Módulo 4 de
 En todo proceso de ETL y EDA, se comienza por extraer una muestra de los datos para analizar su estructura y poder manipularlos. Esto se lleva a cabo en una máquina virtual que nos permite extraer, analizar y transformar detenidamente la estructura de los datos para volcarlos en una base de datos.
 
 Generar un despliegue de principio a fin en la nube nos facilita la interacción entre la generación de los datos desde la máquina virtual y el alojamiento directo en el data warehouse BigQuery sin la necesidad de mayor infraestructura.
+
+¿Por qué usar BigQuery? Como ilustra la imagen a continuación, trabajaremos con tipos de datos estructurados y necesitamos una base de datos tabular (en forma de columnas) para su posterior análisis.
+
+![1715014420958](image/README/1715014420958.png)
 
 En este sentido, ofreceremos un producto de Machine Learning con Python en la VM y con herramientas de Machine Learning en la nube a través de BigQuery ML y Vertex AI.
 
@@ -198,6 +201,5 @@ Y las siguientes extensiones para Visual Studio Code:
 * [Remote - SSH para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
 * [Remote - SSH: editor de archivos de configuración para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
 * [Remote Explorer para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
-
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
