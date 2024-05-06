@@ -22,17 +22,53 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * [Descripción de las tecnologías utilizadas](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#descripci%C3%B3n-de-las-tecnolog%C3%ADas-utilizadas)
 * [Aclaración sobre posibles gastos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#aclaraci%C3%B3n-sobre-posibles-gastos)
 * [Requisitos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#requisitos)
+
 * Paso 1
 
   * [Creación de cuenta de Gmail y activación de período de prueba](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-cuenta-de-gmail-y-activaci%C3%B3n-de-per%C3%ADodo-de-prueba)
   * [Compartir el proyecto con otras personas](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#compartir-el-proyecto-con-otras-personas)
+
 * Paso 2
 
   * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
+
 * Paso 3
 
-  * Instalación del entorno de Anaconda en la máquina virtual
-  * Acceso remoto a la instancia desde la Terminal y VSC
+  * Instalación de gcloud CLI
+  * Conexión remota mediante SSH con la Terminal
+  * Conexión remota mediante SSH con VSC
+
+* Paso 4
+  
+  * Instalación del entorno de Anaconda en la instancia
+
+* Paso 5
+
+  * Usar un Jupyter Server para comenzar a trabajar con Python
+
+* Paso 6
+
+  * Webscraping para obtener las companías de mayor capitalización
+
+* Paso 7
+
+  * Cómo utilizar la biblioteca Yfinance
+
+* Paso 8
+
+  * Conectando desde Python a BigQuery para tranferir la información recabada a la base de datos
+
+* Paso 9
+
+  * Uso de comandos SQL y de Bq para realizar queries a BigQuery
+
+* Paso 10
+
+  * Utilizar Cloud Functions para actualizar la base de datos diariamente
+
+* Paso 10
+
+  * Desplegar herramientas de Machine Learning en BigQuery con BigqueryML
 
 ## Introducción
 
