@@ -1,5 +1,7 @@
 # GCP: Proyecto de Asesor Financiero
 
+![1714974145511](image/README/1714974145511.png)
+
 ## Objetivo
 
 Generar una propuesta de valor a través de la ingesta de datos históricos y en tiempo real de la valorización bursátil de las 10 empresas más importantes de NASDAQ-100.
@@ -23,10 +25,10 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * Paso 1
 
   * [Creación de cuenta de Gmail y activación de período de prueba](#creación-de-cuenta-de-Gmail-y-activación-de-período-de-prueba)
-  * [Compartir el saldo del período de prueba con otras personas](#compartir-el-saldo-del-período-de-prueba-con-otras-personas)
+  * [Compartir el proyecto con otras personas]()
 * Paso 2
 
-  * Creación de una instancia de máquina virtual
+  * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero/#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
 * Paso 3
 
   * Instalación del entorno de Anaconda en la máquina virtual
@@ -34,15 +36,15 @@ Para ello se implementará una infraestructura en la nube utilizando:
 
 ## Introducción
 
-El presente proyecto tiene como objetivo familiarizar con las herramientas elementales de Google Cloud Platform para el desarrollo de una arquitectura de carga y gestión de datos.
+El presente proyecto tiene como objetivo familiarizar con las herramientas elementales de Google Cloud Platform para el desarrollo de una arquitectura de carga y gestión de datos directamente en la nube.
 
-Se parte desde una máquina virtual aprovechando los contenidos del Módulo 4 de Data Science sobre Big Data para reemplazar el VM VirtualBox que corría en nuestra CPU, por una instancia de VM en la nube. Este servicio en GCP se llama Compute Engine y se encarga de administrar recursos para máquinas virtuales. Cada una de ellas se llama instancia.
+Se parte desde una máquina virtual aprovechando los contenidos del Módulo 4 de Data Science sobre Big Data para reemplazar el VM VirtualBox que corría en nuestra CPU por una instancia de VM en la nube. Este servicio en GCP se llama Compute Engine y se encarga de administrar recursos para máquinas virtuales. Cada una de ellas se llama instancia.
 
-En todo proceso de ETL y EDA, se comienza por extraer una muestra, analizar en qué forma están los datos y cuál es su estructura para poder manipularlos a nuestro antojo. Esto se lleva a cabo en una máquina virtual que nos permite extraer, analizar y transformar detenidamente la estructura de los datos.
+En todo proceso de ETL y EDA, se comienza por extraer una muestra de los datos para analizar su estructura y poder manipularlos. Esto se lleva a cabo en una máquina virtual que nos permite extraer, analizar y transformar detenidamente la estructura de los datos para volcarlos en una base de datos.
 
-Al mismo tiempo, al generar un despliegue de principio a fin en la nube, nos facilita mucho la interacción entre la generación de los datos desde la máquina virtual y el alojamiento directo en el data warehouse BigQuery sin la necesidad de mayor infraestructura.
+Generar un despliegue de principio a fin en la nube nos facilita la interacción entre la generación de los datos desde la máquina virtual y el alojamiento directo en el data warehouse BigQuery sin la necesidad de mayor infraestructura.
 
-En este sentido, ofreceremos un producto de Machine Learning aprovechando la máquina virtual y la velocidad de BigQuery para procesar la información de manera que podamos evaluar tendencias del mercado burstil.
+En este sentido, ofreceremos un producto de Machine Learning con Python en la VM y con herramientas de Machine Learning en la nube a través de BigQuery ML y Vertex AI.
 
 Para mantener el data warehouse actualizado, desplegaremos Cloud Functions que irán ingestando una vez al día el valor de cierre de las acciones.
 
@@ -54,7 +56,7 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 * Habilidad para hacer webscraping.
 * Ingesta de data en forma de dataframe en Python directamente al data warehouse.
 * Conexión con herramientas de visualización.
-* Propuesta de valor con Machine Learning.
+* Propuesta de valor con Machine Learning en BigQuery con BigQueryML y en Python con las APIs y Frameworks de ML.
 
 ## Descripción de las tecnologías utilizadas
 
@@ -104,7 +106,6 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 * Disponer de una cuenta de facturación bajo período de prueba o activada.
 * Tarjeta bancaria (crédito o débito)
-* Un compañero bondadoso con una cuenta de facturación bajo período de prueba o activada que quiera compartir el saldo.
 
 [volver a la Tabla de contenidos](#tabla-de-contenidos)
 
@@ -114,9 +115,9 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 * Ver la siguiente guía: [Cómo acceder a la prueba gratituita con un crédito de US$300 para usar GCP](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_acceder.md#c%C3%B3mo-acceder-a-la-prueba-gratituita-con-un-cr%C3%A9dito-de-us300-para-usar-gcp)
 
-### Compartir el saldo del período de prueba con otras personas
+### Compartir el proyecto con otras personas
 
-* Ver la siguiente guía: [Cómo habilitar a otros compañeros a usar mi cuenta de facturación para que podamos trabajar colaborativamente sin que tengan que activar el período de prueba gratuito]()
+* Ver la siguiente guía: [Cómo compartir mi proyecto con otras personas](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/uso_compartido_proyecto.md)
 
 [volver a la Tabla de contenidos](#tabla-de-contenidos)
 
@@ -124,11 +125,12 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 ### Creación de una instancia de máquina virtual
 
-* Para crear una instancia de VM, leer la siguiente guía: [Cómo crear una máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_crear_vm.md)
-* Para administrar una instancia ya creada de VM, cómo se detiene, edita, elimina o inicia:
+* Para crear una instancia de VM: [Cómo crear una máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_crear_vm.md)
+* Para administrar una instancia ya creada de VM, cómo se detiene, edita, elimina o inicia: [Administrar una instancia de máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/modificar_instancia.md)
 
 Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instancia" para crear una nueva máquina virtual con las siguientes características:
 
+* **Nombre:** yfinance-vm (sugerencia)
 * **Región**: us-central1 (Iowa)
 * **Zona**: us-central1-a
 * **Tipo de máquina:** E2-medium
