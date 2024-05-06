@@ -17,18 +17,18 @@ Para ello se implementará una infraestructura en la nube utilizando:
 
 ## Tabla de contenidos
 
-* [Objetivo](#objetivo)
-* [Introducción](#introducción)
-* [Descripción de las tecnologías utilizadas](#Descripción-de-las-tecnologías-utilizadas)
-* [Aclaración sobre posibles gastos](#Aclaración-sobre-posibles-gastos)
-* [Requisitos](#Requisitos)
+* [Objetivo](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#objetivo)
+* [Introducción](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#introducci%C3%B3n)
+* [Descripción de las tecnologías utilizadas](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#descripci%C3%B3n-de-las-tecnolog%C3%ADas-utilizadas)
+* [Aclaración sobre posibles gastos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#aclaraci%C3%B3n-sobre-posibles-gastos)
+* [Requisitos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#aclaraci%C3%B3n-sobre-posibles-gastos)
 * Paso 1
 
-  * [Creación de cuenta de Gmail y activación de período de prueba](#creación-de-cuenta-de-Gmail-y-activación-de-período-de-prueba)
-  * [Compartir el proyecto con otras personas]()
+  * [Creación de cuenta de Gmail y activación de período de prueba](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-cuenta-de-gmail-y-activaci%C3%B3n-de-per%C3%ADodo-de-prueba)
+  * [Compartir el proyecto con otras personas](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#compartir-el-proyecto-con-otras-personas)
 * Paso 2
 
-  * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero/#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
+  * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
 * Paso 3
 
   * Instalación del entorno de Anaconda en la máquina virtual
@@ -88,6 +88,10 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 [![Pillow](https://img.shields.io/badge/Pillow-Biblioteca_de_Python-blue?style=flat-square&logo=pillow)](https://python-pillow.org/) - Biblioteca de imágenes para Python.
 
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+
 ## Aclaración sobre posibles gastos
 
 * Cada cuenta de Gmail, cuenta con un período de prueba de 90 días y un saldo de US$300 para usar en GCP.
@@ -102,12 +106,17 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 * Todavía podemos acceder a la información relacionada con el proyecto y se conserva todo aquello que está incluido en la capa gratuita de GCP.
 * Se pueden asignar todos los proyectos a una otra cuenta de facturación (por ejemplo, una cuenta que disponga saldo del período de prueba) para poder proseguir con el uso de los servicios.
 
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+
 ## Requisitos
 
 * Disponer de una cuenta de facturación bajo período de prueba o activada.
 * Tarjeta bancaria (crédito o débito)
 
-[volver a la Tabla de contenidos](#tabla-de-contenidos)
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
 
 ## Paso 1
 
@@ -119,7 +128,9 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 * Ver la siguiente guía: [Cómo compartir mi proyecto con otras personas](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/uso_compartido_proyecto.md)
 
-[volver a la Tabla de contenidos](#tabla-de-contenidos)
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
 
 ## Paso 2
 
@@ -139,6 +150,12 @@ Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instan
 * **Tipo de disco de arranque:** disco persistente equilibrado
 * **Tamaño (GB):** 30
 
-[volver a la Tabla de contenidos](#tabla-de-contenidos)
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
 
 ## Paso 3
+
+
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
