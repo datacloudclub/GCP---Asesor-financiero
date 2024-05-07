@@ -32,8 +32,7 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * Paso 3
 
   * Instalación de gcloud CLI
-  * Conexión remota mediante SSH con la Terminal
-  * Conexión remota mediante SSH con VSC
+  * Conexión remota mediante SSH
 * Paso 4
 
   * Instalación del entorno de Anaconda en la instancia
@@ -184,17 +183,23 @@ Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instan
 * **Tipo de disco de arranque:** disco persistente equilibrado
 * **Tamaño (GB):** 30
 
+![1715057523531](image/README/1715057523531.png)
+
+Deberemos recordar la IP externa que nos permitirá conectarnos a la instancia mediante SSH, en este caso, 34.135.38.214.
+
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
 ## Paso 3
 
-El tercer paso es conectarnos de manera remota a la instancia de VM para poder trabajar en ella.
+El tercer paso es configurar la conexión remota mediante SSH a la instancia de VM para poder trabajar en ella.
 
-Para ello es necesario descargarse lo siguiente:
+Para ello es necesario instalar:
 
-* Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para conectarnos a la cuenta de GCP desde la Terminal: [Instala Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk?hl=es-419).
+* Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para conectarnos a la cuenta de GCP desde la Terminal.
 
-Para más información acerca de la instalación de Gcloud CLI, referirse a la siguiente guía: [Descarga e instalación de Gcloud CLI para conectarme de manera remota a los servicios en la nube](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/gcloud_cli_install.md).
+Documentación oficial para instalar Gcloud CLI: [Instala Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk?hl=es-419)
+
+Si necesitás una guía paso a paso de cómo hacer esto: [Descarga e instalación de Gcloud CLI para conectarme de manera remota a los servicios en la nube](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/gcloud_cli_install.md).
 
 Y las siguientes extensiones para Visual Studio Code:
 
@@ -202,4 +207,10 @@ Y las siguientes extensiones para Visual Studio Code:
 * [Remote - SSH: editor de archivos de configuración para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
 * [Remote Explorer para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
 
+Necesitamos generar las credenciales que nos permitan identificar nuestra computadora local y configurar la instancia remota para que se puedan conectar mediante canal SSH (Secure Shell), un protocolo de red que permite el acceso remoto a través de una conexión cifrada.
+
+* Completar los pasos para generar credenciales y configuración necesaria: [Cómo conectarse a la instancia vía SSH]()
+
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+## Paso 4
