@@ -31,8 +31,8 @@ Para ello se implementará una infraestructura en la nube utilizando:
   * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
 * Paso 3
 
-  * Instalación de gcloud CLI
-  * Conexión remota mediante SSH
+  * [Instalación de Gcloud CLI](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#instalaci%C3%B3n-gcloud-cli)
+  * [Conexión remota mediante SSH](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#conexi%C3%B3n-mediante-ssh)
 * Paso 4
 
   * Instalación del entorno de Anaconda en la instancia
@@ -183,7 +183,7 @@ Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instan
 * **Tipo de disco de arranque:** disco persistente equilibrado
 * **Tamaño (GB):** 30
 
-![1715057523531](image/README/1715057523531.png)
+![1715063127291](image/README/1715063127291.png)
 
 Deberemos recordar la IP externa que nos permitirá conectarnos a la instancia mediante SSH, en este caso, 34.135.38.214.
 
