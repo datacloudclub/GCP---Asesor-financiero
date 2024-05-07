@@ -193,7 +193,9 @@ Deberemos recordar la IP externa que nos permitirá conectarnos a la instancia m
 
 El tercer paso es configurar la conexión remota mediante SSH a la instancia de VM para poder trabajar en ella.
 
-Para ello es necesario instalar:
+### Instalación Gcloud CLI
+
+Es necesario instalar:
 
 * Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para conectarnos a la cuenta de GCP desde la Terminal.
 
@@ -207,9 +209,11 @@ Y las siguientes extensiones para Visual Studio Code:
 * [Remote - SSH: editor de archivos de configuración para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
 * [Remote Explorer para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
 
+### Conexión mediante SSH
+
 Necesitamos generar las credenciales que nos permitan identificar nuestra computadora local y configurar la instancia remota para que se puedan conectar mediante canal SSH (Secure Shell), un protocolo de red que permite el acceso remoto a través de una conexión cifrada.
 
-* Completar los pasos para generar credenciales y configuración necesaria: [Cómo conectarse a la instancia vía SSH]()
+* Completar los pasos para generar credenciales y configuración necesaria: [Cómo conectarse a la instancia vía SSH](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/conexion_ssh.md)
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
