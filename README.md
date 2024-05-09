@@ -132,12 +132,11 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 * Durante este período, no se genera ningún tipo de cargo.
 * El uso por los servicios de GCP generan gastos que son absorbidos por el saldo de US$300.
 * De esta manera podemos analizar el consumo eventual que genera operar utilizando GCP.
-* Un objetivo de este proyecto es la reducción de costos probando diferentes alternativas.
 * Para acceder a este beneficio, es necesario disponer de una tarjeta de crédito o débito habilitada.
 * No se genera ningún cargo en la tarjeta, pero durante el período de prueba no se puede eliminar la tarjeta de la cuenta, de lo contrario, no se puede seguir usando el período de prueba.
 * La cuenta de GCP se paraliza automáticamente pasados los 90 días o si el saldo llega a US$ 0.
 * Es decir, no hay problema si olvidamos servicios encendidos. Todos ellos serán inhabilitados llegado ese punto.
-* Todavía podemos acceder a la información relacionada con el proyecto y se conserva todo aquello que está incluido en la capa gratuita de GCP.
+* Luego de terminada la prueba gratuita podemos acceder a la información relacionada con el proyecto y se conserva todo aquello que está incluido en la capa gratuita de GCP.
 * Se pueden asignar todos los proyectos a una otra cuenta de facturación (por ejemplo, una cuenta que disponga saldo del período de prueba) para poder proseguir con el uso de los servicios.
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
@@ -153,6 +152,10 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 El primer paso es contar con un proyecto asociado a una cuenta de facturación que nos permita utilizar los recursos de GCP.
 
+Para conocer más acerca de los descuentos y servicios gratuitos que existen en GCP, y conocer más acerca del período de prueba: [Documentación oficial acerca del Programa Gratuito de GCP](https://cloud.google.com/free/docs/free-cloud-features?hl=es-419).
+
+![1715227906359](image/README/1715227906359.png)
+
 ### Creación de cuenta de Gmail y activación de período de prueba
 
 * Ver la siguiente guía: [Cómo acceder a la prueba gratituita con un crédito de US$300 para usar GCP](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_acceder.md#c%C3%B3mo-acceder-a-la-prueba-gratituita-con-un-cr%C3%A9dito-de-us300-para-usar-gcp)
@@ -167,6 +170,12 @@ El primer paso es contar con un proyecto asociado a una cuenta de facturación q
 
 El segundo paso es la creación de una instancia de máquina virtual para poder interactuar con ella y trabajar de manera remota.
 
+Fuera del período de prueba, existe una capa gratuita de servicios que se pueden utilizar que no generan gastos (aunque de todas maneras se generan gastos por su uso). 
+
+Crearemos la instancia de VM con las características de la capa gratuita: [Documentación sobre nivel gratuito de VM](https://cloud.google.com/free/docs/free-cloud-features?hl=es-419#compute)
+
+![1715228701002](image/README/1715228701002.png)
+
 ### Creación de una instancia de máquina virtual
 
 * Para crear una instancia de VM: [Cómo crear una máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_crear_vm.md)
@@ -177,15 +186,16 @@ Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instan
 * **Nombre:** yfinance-vm (sugerencia)
 * **Región**: us-central1 (Iowa)
 * **Zona**: us-central1-a
-* **Tipo de máquina:** E2-medium
+* **Tipo de máquina:** E2-micro
 * **Sistema operativo:** Ubuntu
 * **Versión:** 24.04 LTS (la versión más reciente, también se puede probar la 20, 22, 23)
 * **Tipo de disco de arranque:** disco persistente equilibrado
 * **Tamaño (GB):** 30
+* **IP externa fija**
 
-![1715063127291](image/README/1715063127291.png)
+![1715232663792](image/README/1715232663792.png)
 
-Deberemos recordar la IP externa que nos permitirá conectarnos a la instancia mediante SSH, en este caso, 34.135.38.214.
+Debemos tomar nota de la dirección IP externa que nos servirá para conectarnos a la VM, en nuestro caso es: 35.208.82.103
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
@@ -218,3 +228,79 @@ Necesitamos generar las credenciales que nos permitan identificar nuestra comput
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
 ## Paso 4
+
+El cuarto paso es la instalación del entorno Anaconda en la VM que contiene Python y las librerías más utilizadas de Machine Learning.
+
+Para descargar Anaconda, [visitamos la página oficial](https://www.anaconda.com/) en nuestro explorador en local. Vamos a donde dice "Free Download"
+
+![1715232809029](image/README/1715232809029.png)
+
+En el recuardo donde nos pide correo electrónico, debajo dice "skip registration" para evitar registrarnos.
+
+![1715232851742](image/README/1715232851742.png)
+
+Allí veremos las descargas para las distintas plataformas. En Linux, buscamos el link correspondiente a la descarga de 64-bit (x86), apretamos click derecho sobre él y elegimos "Copiar dirección del vínculo".
+
+![1715232893765](image/README/1715232893765.png)
+
+En la VM escribimos `wget` para descargar el archivo, y pegamos la URL que habíamos copiado en la página de descargas: `wget https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh`.
+
+![1715232928470](image/README/1715232928470.png)
+
+Luego de que se haya descargado, convertimos el archivo descargado en ejecutable utlizando el comando `chmod +x Anaconda3-2024.02-1-Linux-x86_64.sh` y lo ejecutamos `./Anaconda3-2024.02-1-Linux-x86_64.sh`
+
+![1715232970656](image/README/1715232970656.png)
+
+Presionamos ENTER y deberemos leer el Acuerdo de Licencia hasta llegar al final para escribir "yes" aceptándo los términos y condiciones para comenzar la descarga:
+
+![1715233067054](image/README/1715233067054.png)
+
+Luego nos ofrece un directorio de instalación, presionamos ENTER para dejar el directorio por defecto /home/DCC/anaconda3
+
+![1715233055077](image/README/1715233055077.png)
+
+Antes de finalizar, nos pregunta si cada vez que iniciamos la VM queremos hacerlo en un entorno de Anaconda, ponemos "yes":
+
+![1715233103776](image/README/1715233103776.png)
+
+Una vez finalizada la instalación, nos pide salir de la conexión con la VM, escribimos el comando `exit` 
+
+![1715233152364](image/README/1715233152364.png)
+
+Y luego nos conectamos nuevamente a la VM con `ssh yfinance` y nótese cómo ahora dice (base) delante del símbolo $. Quiere decir que Anaconda fue correctamente instalado y está funcionando.
+
+![1715233220119](image/README/1715233220119.png)
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+## Paso 5
+
+El quinto paso, ya habiendo instalado Anaconda, incializamos un Jupyter Server para comenzar a trabajar en Python, escribiendo en la VM: `jupyter lab`
+
+![1715234577733](image/README/1715234577733.png)
+
+La terminal quedará tomada y la deberemos dejar así para que funcione el Jupyter Server, de manera tal de que debemos abrir una terminal nueva. Notemos que aparece un token que será pedido cuando ingresemos al Jupyter: en este caso es feb8264feb4e248a26b89ce16a8348c7607717d418711bce
+
+![1715234695688](image/README/1715234695688.png)
+
+En una nueva terminal fuera de la VM, escribimos `ssh -L 8888:localhost:8888 -N yfinance` lo que permitirá que podamos acceder al puerto 8888 para inicializar el Jupyter:
+
+![1715234857438](image/README/1715234857438.png)
+
+La terminal quedará nuevamente tomada, ambas deben permanecer abiertas para mantener el servidor. Cerrar las ventanas implica que todo lo que no esté guardado, se perderá.
+
+En una ventana en nuestro explorador, navegamos a la página: `localhost:8888`
+
+![1715234951588](image/README/1715234951588.png)
+
+En "Password or token" debemos copiar de la terminal del Jupyter server el token mencionado anteriormente:
+
+![1715235004784](image/README/1715235004784.png)
+
+Y ya tenemos entorno de Jupyter para trabajar con Python en nuestra VM:
+
+![1715235050390](image/README/1715235050390.png)
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+## Paso 6
