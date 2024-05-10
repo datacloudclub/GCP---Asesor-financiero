@@ -22,46 +22,30 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * [Descripción de las tecnologías utilizadas](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#descripci%C3%B3n-de-las-tecnolog%C3%ADas-utilizadas)
 * [Aclaración sobre posibles gastos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#aclaraci%C3%B3n-sobre-posibles-gastos)
 * [Requisitos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#requisitos)
-* Paso 1
+* Paso 1: Preparación de la VM
 
   * [Creación de cuenta de Gmail y activación de período de prueba](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-cuenta-de-gmail-y-activaci%C3%B3n-de-per%C3%ADodo-de-prueba)
   * [Compartir el proyecto con otras personas](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#compartir-el-proyecto-con-otras-personas)
-* Paso 2
-
   * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
-* Paso 3
-
   * [Instalación de Gcloud CLI](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#instalaci%C3%B3n-gcloud-cli)
   * [Conexión remota mediante SSH](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#conexi%C3%B3n-mediante-ssh)
-* Paso 4
-
   * Instalación del entorno de Anaconda en la instancia
-* Paso 5
-
   * Usar un Jupyter Server para comenzar a trabajar con Python
-* Paso 6
+* Paso 2: Webscraping y uso de yfinance para obtener capitalización bursátil
 
   * Webscraping para obtener las companías de mayor capitalización
-* Paso 7
-
   * Cómo utilizar la biblioteca Yfinance
-* Paso 8
+* Paso 3: Administración de BigQuery
 
   * Conectando desde Python a BigQuery para tranferir la información recabada a la base de datos
-* Paso 9
-
   * Uso de comandos SQL y de Bq para realizar queries a BigQuery
-* Paso 10
-
   * Conexión de BigQuery con Looker y PowerBI
-* Paso 11
+* Paso 4: CI/CD con Cloud Functions
 
   * Utilizar Cloud Functions para actualizar la base de datos diariamente
-* Paso 12
+* Paso 5: Herramientas de ML en la nube y en Python
 
-  * Desplegar herramientas de Machine Learning en BigQuery con BigqueryML
-* Paso 13
-
+  * Desplegar herramientas de Machine Learning en BigQuery con BigQueryML y VertexAI
   * Desplegar herramientas de Machine Learning en Python usando la información en BigQuery
 
 ## Introducción
@@ -70,11 +54,21 @@ El presente proyecto tiene como objetivo familiarizar con las herramientas eleme
 
 Se parte desde una máquina virtual aprovechando los contenidos del Módulo 4 de Data Science sobre Big Data para reemplazar el VM VirtualBox que corría en nuestra CPU por una instancia de VM en la nube. Este servicio en GCP se llama Compute Engine y se encarga de administrar recursos para máquinas virtuales. Cada una de ellas se llama instancia.
 
+### ¿Por qué usar una VM?
+
 En todo proceso de ETL y EDA, se comienza por extraer una muestra de los datos para analizar su estructura y poder manipularlos. Esto se lleva a cabo en una máquina virtual que nos permite extraer, analizar y transformar detenidamente la estructura de los datos para volcarlos en una base de datos.
 
 Generar un despliegue de principio a fin en la nube nos facilita la interacción entre la generación de los datos desde la máquina virtual y el alojamiento directo en el data warehouse BigQuery sin la necesidad de mayor infraestructura.
 
-¿Por qué usar BigQuery? Como ilustra la imagen a continuación, trabajaremos con tipos de datos estructurados y necesitamos una base de datos tabular (en forma de columnas) para su posterior análisis.
+El nivel gratuito incluye una VM micro y una dirección IP estática fija sin costo.
+
+Al mismo tiempo, la VM sólo será utilizada para construir la primera parte del historial de valoración bursátil de las empresas. Una vez comprendida la lógica de funcionamiento del código y de la biblioteca yfinance, podremos reemplazar la VM por Cloud Functions que cumplan el rol de mantener la base de datos actualizada al tener que iterar para adquirir el valor de cierre del día que acaba de terminar.
+
+Por otra parte, nos permitirá utilizar máquinas más potentes de mayor capacidad y tarjetas gráficas cuando querramos hacer modelos de Machine Learning que estén fuera de la potencia de nuestras computadoras.
+
+### ¿Por qué usar BigQuery?
+
+Como ilustra la imagen a continuación, trabajaremos con tipos de datos estructurados y necesitamos una base de datos tabular (en forma de columnas) para su posterior análisis.
 
 ![1715014420958](image/README/1715014420958.png)
 
@@ -144,11 +138,12 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 ## Requisitos
 
 * Disponer de una cuenta de facturación bajo período de prueba o activada.
-* Tarjeta bancaria (crédito o débito)
+  * O bien: Tarjeta bancaria (crédito o débito) para poder iniciar el período de prueba.
+  * Si no se posee acceso a una tarjeta: Algún compañero que quiera compartir su proyecto con nosotros.
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
-## Paso 1
+## Paso 1: Preparación de la VM
 
 El primer paso es contar con un proyecto asociado a una cuenta de facturación que nos permita utilizar los recursos de GCP.
 
@@ -156,25 +151,24 @@ Para conocer más acerca de los descuentos y servicios gratuitos que existen en 
 
 ![1715227906359](image/README/1715227906359.png)
 
+Fuera del período de prueba, existe una capa gratuita de servicios que se pueden utilizar que no generan gastos (aunque de todas maneras se generan ciertos gastos por su uso).
+
+Crearemos la instancia de VM con las características de la capa gratuita: [Documentación sobre nivel gratuito de VM](https://cloud.google.com/free/docs/free-cloud-features?hl=es-419#compute)
+
+![1715228701002](image/README/1715228701002.png)
+
 ### Creación de cuenta de Gmail y activación de período de prueba
 
-* Ver la siguiente guía: [Cómo acceder a la prueba gratituita con un crédito de US$300 para usar GCP](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_acceder.md#c%C3%B3mo-acceder-a-la-prueba-gratituita-con-un-cr%C3%A9dito-de-us300-para-usar-gcp)
+* Ver la siguiente guía: [Cómo acceder a la prueba gratituita con un crédito de US$300 para usar GCP
+  ](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_acceder.md#c%C3%B3mo-acceder-a-la-prueba-gratituita-con-un-cr%C3%A9dito-de-us300-para-usar-gcp)
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
 ### Compartir el proyecto con otras personas
 
 * Ver la siguiente guía: [Cómo compartir mi proyecto con otras personas](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/uso_compartido_proyecto.md)
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
-
-## Paso 2
-
-El segundo paso es la creación de una instancia de máquina virtual para poder interactuar con ella y trabajar de manera remota.
-
-Fuera del período de prueba, existe una capa gratuita de servicios que se pueden utilizar que no generan gastos (aunque de todas maneras se generan gastos por su uso). 
-
-Crearemos la instancia de VM con las características de la capa gratuita: [Documentación sobre nivel gratuito de VM](https://cloud.google.com/free/docs/free-cloud-features?hl=es-419#compute)
-
-![1715228701002](image/README/1715228701002.png)
 
 ### Creación de una instancia de máquina virtual
 
@@ -199,15 +193,11 @@ Debemos tomar nota de la dirección IP externa que nos servirá para conectarnos
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
-## Paso 3
+### Instalación Gcloud CLI en local
 
-El tercer paso es configurar la conexión remota mediante SSH a la instancia de VM para poder trabajar en ella.
+Es necesario instalar en nuestra PC para poder conectarnos con los servicios en GCP:
 
-### Instalación Gcloud CLI
-
-Es necesario instalar:
-
-* Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para conectarnos a la cuenta de GCP desde la Terminal.
+* Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para acceder a la cuenta de GCP desde la Terminal.
 
 Documentación oficial para instalar Gcloud CLI: [Instala Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk?hl=es-419)
 
@@ -219,6 +209,8 @@ Y las siguientes extensiones para Visual Studio Code:
 * [Remote - SSH: editor de archivos de configuración para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
 * [Remote Explorer para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
 
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
 ### Conexión mediante SSH
 
 Necesitamos generar las credenciales que nos permitan identificar nuestra computadora local y configurar la instancia remota para que se puedan conectar mediante canal SSH (Secure Shell), un protocolo de red que permite el acceso remoto a través de una conexión cifrada.
@@ -227,9 +219,7 @@ Necesitamos generar las credenciales que nos permitan identificar nuestra comput
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
-## Paso 4
-
-El cuarto paso es la instalación del entorno Anaconda en la VM que contiene Python y las librerías más utilizadas de Machine Learning.
+### Instalación del entorno de Anaconda en la instancia
 
 Para descargar Anaconda, [visitamos la página oficial](https://www.anaconda.com/) en nuestro explorador en local. Vamos a donde dice "Free Download"
 
@@ -263,7 +253,7 @@ Antes de finalizar, nos pregunta si cada vez que iniciamos la VM queremos hacerl
 
 ![1715233103776](image/README/1715233103776.png)
 
-Una vez finalizada la instalación, nos pide salir de la conexión con la VM, escribimos el comando `exit` 
+Una vez finalizada la instalación, nos pide salir de la conexión con la VM, escribimos el comando `exit`
 
 ![1715233152364](image/README/1715233152364.png)
 
@@ -273,27 +263,29 @@ Y luego nos conectamos nuevamente a la VM con `ssh yfinance` y nótese cómo aho
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
-## Paso 5
+### Usar un Jupyter Server para comenzar a trabajar con Python
 
-El quinto paso, ya habiendo instalado Anaconda, incializamos un Jupyter Server para comenzar a trabajar en Python, escribiendo en la VM: `jupyter lab`
+Al inciar un Jupyter Server, el mismo utiliza el puerto 8888 en la VM. Para que podamos utilizar el puerto y conectarnos desde nuestra computadora local utilizando nuestro navegador al Jupyter server, debemos hacer *port forwarding*: vincular el puerto de la VM con el puerto en nuestra PC.
 
-![1715234577733](image/README/1715234577733.png)
+Para ello, desde la Terminal en nuestra PC, nos conectamos con la instancia con el comando `ssh` con la siguiente modificación: `ssh -L 8888:localhost:8888 yfinance`
 
-La terminal quedará tomada y la deberemos dejar así para que funcione el Jupyter Server, de manera tal de que debemos abrir una terminal nueva. Notemos que aparece un token que será pedido cuando ingresemos al Jupyter: en este caso es feb8264feb4e248a26b89ce16a8348c7607717d418711bce
+![1715320672821](image/README/1715320672821.png)
+
+Ya dentro de la VM, debemos iniciar Jupyter, con el comando `jupyter lab`
+
+![1715320713774](image/README/1715320713774.png)
+
+La terminal quedará tomada y la deberemos dejar así para que funcione el Jupyter Server. Si quisieramos utilizar la VM para otra cosa, deberemos crear otra terminal nueva. Si cerramos la terminal, o interrumpimos el funcionamiento con CTRL + C, se cierra el Jupyter Server.
+
+Notemos que aparece un token que será pedido cuando ingresemos al Jupyter: en este caso es feb8264feb4e248a26b89ce16a8348c7607717d418711bce
 
 ![1715234695688](image/README/1715234695688.png)
-
-En una nueva terminal fuera de la VM, escribimos `ssh -L 8888:localhost:8888 -N yfinance` lo que permitirá que podamos acceder al puerto 8888 para inicializar el Jupyter:
-
-![1715234857438](image/README/1715234857438.png)
-
-La terminal quedará nuevamente tomada, ambas deben permanecer abiertas para mantener el servidor. Cerrar las ventanas implica que todo lo que no esté guardado, se perderá.
 
 En una ventana en nuestro explorador, navegamos a la página: `localhost:8888`
 
 ![1715234951588](image/README/1715234951588.png)
 
-En "Password or token" debemos copiar de la terminal del Jupyter server el token mencionado anteriormente:
+En "Password or token" debemos pegar de la terminal del Jupyter el token mencionado anteriormente:
 
 ![1715235004784](image/README/1715235004784.png)
 
@@ -301,6 +293,10 @@ Y ya tenemos entorno de Jupyter para trabajar con Python en nuestra VM:
 
 ![1715235050390](image/README/1715235050390.png)
 
+**Recordatorio:** Si se cierra la ventana de la terminal que se utilizó para iniciar el Jupyter, la información no guardada se pierde.
+
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
-## Paso 6
+## Paso 2: Webscraping y uso de yfinance para obtener capitalización bursátil
+
+El sexto paso es la obtención de las primeras 100 empresas
