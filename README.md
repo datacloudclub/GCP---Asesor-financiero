@@ -34,12 +34,12 @@ Para ello se implementará una infraestructura en la nube utilizando:
   * [Usar un Jupyter Server para comenzar a trabajar con Python](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#usar-un-jupyter-server-para-comenzar-a-trabajar-con-python)
 * [Paso 2: Webscraping y uso de yfinance para obtener capitalización bursátil](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#paso-2-webscraping-y-uso-de-yfinance-para-obtener-capitalizaci%C3%B3n-burs%C3%A1til)
 
-  * Webscraping para obtener las companías de mayor capitalización
-  * Cómo utilizar la biblioteca Yfinance
-* Paso 3: Administración de BigQuery
+  * Webscraping para obtener las companías que componen el índice Nasdaq-100
+  * Uso de la biblioteca Yfinance
+* Paso 3: Conectando a BigQuery
 
-  * Conectando desde Python a BigQuery para tranferir la información recabada a la base de datos
-  * Uso de comandos SQL y de Bq para realizar queries a BigQuery
+  * Creando cuenta de servicios para ingresar a BigQuery desde la instancia
+  * Cargar data a BigQuery desde la VM
   * Conexión de BigQuery con Looker y PowerBI
 * Paso 4: CI/CD con Cloud Functions
 
@@ -186,11 +186,29 @@ Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instan
 * **Versión:** 24.04 LTS (la versión más reciente, también se puede probar la 20, 22, 23)
 * **Tipo de disco de arranque:** disco persistente equilibrado
 * **Tamaño (GB):** 30
-* **IP externa fija**
+* **IP externa fija:** yfinance-vm-ip (sugerencia)
+
+En una ventana de la Terminal, ejecutamos el siguiente comando de `gcloud`, para reservar una dirección ip estática:
+
+```
+gcloud compute addresses create yfinance-ip --region us-central1
+```
+
+Y luego para anotar la dirección IP externa reservada `ADDRESS/RANGE`:
+
+```
+gcloud compute addresses list
+```
+
+![1716007207939](image/README/1716007207939.png)
+
+Creamos la instancia con los parámetros mencionados:
+
+```
+gcloud compute instances create yfinance-vm --zone=us-central1-a --machine-type=e2-micro --image=ubuntu-2004-focal-v20230509 --image-project=ubuntu-os-cloud --boot-disk-type=pd-balanced --boot-disk-size=30GB --address=ADDRESS/RANGE
+```
 
 ![1715232663792](image/README/1715232663792.png)
-
-Debemos tomar nota de la dirección IP externa que nos servirá para conectarnos a la VM, en nuestro caso es: 35.208.82.103
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
@@ -200,7 +218,6 @@ Es necesario instalar en nuestra PC para poder conectarnos con los servicios en 
 
 * Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para acceder a la cuenta de GCP desde la Terminal.
 * Documentación oficial para instalar Gcloud CLI: [Instala Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk?hl=es-419)
-
 * Si necesitás una guía paso a paso de cómo hacer esto: [Descarga e instalación de Gcloud CLI para conectarme de manera remota a los servicios en la nube](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/gcloud_cli_install.md).
 
 Y las siguientes extensiones para Visual Studio Code:
@@ -233,11 +250,26 @@ Allí veremos las descargas para las distintas plataformas. En Linux, buscamos e
 
 ![1715232893765](image/README/1715232893765.png)
 
-Conectados via SSH con la VM mediante el comando `ssh yfinance` para permitir el uso del puerto 8888 para Jupyter server y escribimos: `wget` para descargar el archivo, y pegamos la URL que habíamos copiado en la página de descargas: `wget https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh`.
+Ingresamos desde una Terminal de Windows usando el nombre de `host` que habíamos declarado en el archivo `config`:
+
+```
+ssh yfinance
+```
+
+Dentro de la instancia: `wget` para descargar el archivo, y pegamos la URL que habíamos copiado en la página de descargas:
+
+```
+wget https://repo.anaconda.com/archive/Anaconda3-2024.02-1-Linux-x86_64.sh
+```
 
 ![1715232928470](image/README/1715232928470.png)
 
 Luego de que se haya descargado, convertimos el archivo descargado en ejecutable utlizando el comando `chmod +x Anaconda3-2024.02-1-Linux-x86_64.sh` y lo ejecutamos `./Anaconda3-2024.02-1-Linux-x86_64.sh`
+
+```
+chmod +x Anaconda3-2024.02-1-Linux-x86_64.sh
+./Anaconda3-2024.02-1-Linux-x86_64.sh
+```
 
 ![1715232970656](image/README/1715232970656.png)
 
@@ -268,6 +300,10 @@ Y luego nos conectamos nuevamente a la VM con `ssh yfinance` y nótese cómo aho
 Al inciar un Jupyter Server, el mismo utiliza el puerto 8888 en la VM. Para que podamos utilizar el puerto y conectarnos desde nuestra computadora local utilizando nuestro navegador al Jupyter server, debemos hacer *port forwarding*: vincular el puerto de la VM con el puerto en nuestra PC.
 
 Para ello, desde la Terminal en nuestra PC, nos conectamos con la instancia con el comando `ssh` con la siguiente modificación: `ssh -L 8888:localhost:8888 yfinance`, de manera que el puerto 8888 de la instancia se vea reflejado a través de localhost:8888 en local.
+
+```
+ssh -L 8888:localhost:8888 yfinance
+```
 
 ![1715320672821](image/README/1715320672821.png)
 
@@ -300,3 +336,257 @@ Y ya tenemos entorno de Jupyter para trabajar con Python en nuestra VM:
 ## Paso 2: Webscraping y uso de yfinance para obtener capitalización bursátil
 
 El segundo paso empieza con la obtención de las primeras 100 empresas mediante webscraping.
+
+### Webscraping para obtener las companías que componen el índice Nasdaq-100
+
+Utilizaremos las librerías BeautifulSoup para hacer webscraping, Pandas e IO. Dichas librerías ya están preinstaladas en este entorno de Python gracias a Anaconda.
+
+Buscamos obtener el listado de Tickers, es decir, las siglas de las empresas que constituyen el índice.
+
+A partir de una tabla en la [página de Wikipedia de Nasdaq-100](https://en.wikipedia.org/wiki/Nasdaq-100), bajo el subtítulo de "Components" encontramos la tabla cuyo '`id`' es '`constituents`' que corresponde a la tabla que constituyen el índice. Ahí vemos la columna `Ticker` correspondiente a la sigla de la empresa.
+
+![1716003233314](image/README/1716003233314.png)
+
+Mediante el siguiente código, elaboramos una función en Python `obtener_empresas_nasdaq100()` con el propósito de crear un DataFrame '`df`' de Pandas a partir de la columna '`Ticker`' de la tabla '`constituients`'.
+
+```
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+from io import StringIO
+
+def obtener_empresas_nasdaq100():
+    url = 'https://en.wikipedia.org/wiki/NASDAQ-100'
+    respuesta = requests.get(url) 
+    soup = BeautifulSoup(respuesta.text, 'html.parser')
+    tabla = soup.find('table', {'id': 'constituents'})
+    # Usar StringIO para convertir la cadena HTML en un objeto similar a un archivo
+    html_string = str(tabla)
+    html_io = StringIO(html_string)
+    df = pd.read_html(html_io)[0]
+    return df['Ticker'].tolist()
+```
+
+Llamamos a la función `obtener_empresas_nasdaq100()` para obtener el listado de las Tickers.
+
+![1716003785607](image/README/1716003785607.png)
+
+Así habremos hecho webscraping de una tabla de Wikipedia, una muy buena fuente de recursos gratuitos como éste que puede ser de mucha utilidad para obtener data bien ordenada.
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+### Uso de la biblioteca Yfinance
+
+Ejemplo de uso de la biblioteca Yfinance para averiguar la cotización actual de un determinado Ticker, en este caso AAPL:
+
+```
+import yfinance as yf
+
+# Definir el símbolo del activo que deseas obtener
+symbol = 'AAPL'  # Por ejemplo, Apple Inc.
+
+# Crear un objeto Ticker para el símbolo especificado
+ticker = yf.Ticker(symbol)
+
+# Obtener la información sobre la cotización actual
+current_quote = ticker.history(period='1d')
+
+# Imprimir la cotización actual
+print("Cotización actual de", symbol, ":", current_quote['Close'].iloc[0])
+```
+
+![1716007711222](image/README/1716007711222.png)
+
+Para conocer a fondo toda la información que provee Yfinance acerca de un Ticker, es la propiedad `.info` que nos devuelve un diccionario.
+
+```
+yf.Ticker("AAPL").info
+```
+
+![1716007943225](image/README/1716007943225.png)
+
+Para conocer toda la cotización histórica:
+
+```
+yf.Ticker("AAPL").history(period="max")
+```
+
+![1716008093835](image/README/1716008093835.png)
+
+En el próximo paso, vamos a construir un dataset dentro de BigQuery y dentro de ese dataset, crearemos una tabla por cada historial de cada Ticker.
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+## Paso 3: Conectando a BigQuery
+
+El tercer paso requiere de otorgar permisos para acceder y editar BigQuery por parte de la instancia de VM. 
+
+Primero accedemos a BigQuery a través de la Consola para habilitar todas las APIs necesarias.
+
+* Se recomienda la lectura de la documentación oficial:
+  * [Cómo crear cuentas de servicio](https://cloud.google.com/iam/docs/service-accounts-create?hl=es-419)
+  * [Funciones y permisos de IAM de Compute Engine](https://cloud.google.com/compute/docs/access/iam?hl=es-419)
+  * [Datos de carga por lotes en BigQuery](https://cloud.google.com/bigquery/docs/batch-loading-data?hl=es-419#python)
+
+Esto se debe a que cada servicio está aislado y es independiente del otro. Se requiere permisos especiales para que desde una instancia de VM se pueda modificar BigQuery.
+
+En GCP se utilizan las Cuentas de Servicio dentro de IAM, que son "cuentas ficticias" con las que se habilita a un servicio a tener permisos de acceder, editar, eliminar recursos de otros servicios.
+
+### Creando cuenta de servicios para ingresar a BigQuery desde la instancia
+
+Desde una nueva terminal primero creamos la cuenta de servicio como dice en la documentación:
+
+![1716013682860](image/README/1716013682860.png)
+
+```
+gcloud iam service-accounts create mi-cuenta-servicio --display-name "bigquery-vm"
+```
+
+
+```
+gcloud projects add-iam-policy-binding ID_TU_PROYECTO --member "serviceAccount:bigquery-vm@ID_TU_PROYECTO.iam.gserviceaccount.com" --role "roles/bigquery.dataEditor"
+gcloud projects add-iam-policy-binding ID_TU_PROYECTO --member "serviceAccount:bigquery-vm@ID_TU_PROYECTO.iam.gserviceaccount.com" --role "roles/bigquery.jobUser"
+```
+
+Luego debemos crear una llave en forma de archivo JSON con las credenciales.
+
+```
+gcloud iam service-accounts keys create key.json --iam-account vm-bigquery@molten-precinct-421420.iam.gserviceaccount.com
+```
+
+Esto creará un archivo `key.json` en la carpeta que estemos en la terminal. Debemos subir ese archivo a la VM. Creamos la carpeta `keys` y otorgamos permisos de escritura
+
+```
+ssh yfinance mkdir keys
+ssh yfinance sudo chmod o+w keys
+```
+
+Y copiamos el archivo a la carpeta keys dentro de la instancia:
+
+```
+scp key.json yfinance:keys/key.json
+```
+
+Alternativamente por Consola, en IAM y administración, vamos a cuenta de servicio:
+
+![1716012894915](image/README/1716012894915.png)
+
+Creamos una nueva cuenta de servicio:
+
+![1716012916275](image/README/1716012916275.png)
+
+Le asignamos un nombre y la creamos:
+
+![1716012937366](image/README/1716012937366.png)
+
+Se agregan los roles de:
+
+* Editor de datos de BigQuery
+* Usuario de trabajos
+
+![1716013849811](image/README/1716013849811.png)
+
+![1716013892045](image/README/1716013892045.png)
+
+Una vez creada, hacemos click sobre ella para editar su configuración:
+
+![1716013994084](image/README/1716013994084.png)
+
+En Claves, Agregar Clave y Crear clave nueva para crear una clave JSON que generará una descarga del archivo.
+
+![1716014031709](image/README/1716014031709.png)
+
+![1716014206034](image/README/1716014206034.png)
+
+Luego podemos subir el archivo usando Jupyter Lab
+
+![1716014269025](image/README/1716014269025.png)
+
+### Cargar data a BigQuery desde la VM
+
+Ya en un Jupyter Lab dentro de la instancia, podemosPara instalar la biblioteca de BigQuery:
+
+```
+pip google-cloud-bigquery
+```
+
+![1716012738043](image/README/1716012738043.png)
+
+El siguiente código nos permite unificar todo lo obtenido hasta el momento:
+
+* Hacer webscraping a la tabla de Wikipedia con todos los Tickers de Nasdaq-100.
+* Crear un dataset por cada Ticker con todos sus valores históricos.
+* Se crea un Dataset en BigQuery si no existe uno con ese nombre.
+* Se una tabla nueva por cada Ticker en BigQuery con el debido formato para cada columna.
+
+```
+import os
+from google.cloud import bigquery
+import yfinance as yf
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+from io import StringIO
+
+# Ubicación del archivo json con las credenciales de la cuenta de servicios
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/keys/key.json"
+
+# Inicializa el cliente de BigQuery
+client = bigquery.Client()
+
+def obtener_empresas_nasdaq100():
+    url = 'https://en.wikipedia.org/wiki/NASDAQ-100'
+    respuesta = requests.get(url)
+    soup = BeautifulSoup(respuesta.text, 'html.parser')
+    tabla = soup.find('table', {'id': 'constituents'})
+    html_string = str(tabla)
+    html_io = StringIO(html_string)
+    df = pd.read_html(html_io)[0]
+    return df['Ticker'].tolist()
+
+def crear_dataset_si_no_existe(dataset_id):
+    dataset_ref = client.dataset(dataset_id)
+    try:
+        client.get_dataset(dataset_ref)  # Verificar si existe el dataset
+        print(f"El Dataset {dataset_id} ya existe.")
+    except Exception:  # Si no existe, lo crea
+        dataset = bigquery.Dataset(dataset_ref)
+        dataset = client.create_dataset(dataset)
+        print(f"El Dataset {dataset_id} fue creado.")
+
+def guardar_data_en_BigQuery(ticker, dataset_id):
+    data = yf.Ticker(ticker).history(period="max")
+    if not data.empty:
+        data = data.sort_values('Date')
+        schema = [
+            bigquery.SchemaField("Date", "TIMESTAMP"),
+            bigquery.SchemaField("Open", "FLOAT"),
+            bigquery.SchemaField("High", "FLOAT"),
+            bigquery.SchemaField("Low", "FLOAT"),
+            bigquery.SchemaField("Close", "FLOAT"),
+            bigquery.SchemaField("Volume", "INTEGER"),
+            bigquery.SchemaField("Dividends", "FLOAT"),
+            bigquery.SchemaField("Stock Splits", "FLOAT"),
+        ]
+        table_id = f"{client.project}.{dataset_id}.{ticker}"
+        job_config = bigquery.LoadJobConfig(
+            schema=schema,
+            write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
+        )
+        job = client.load_table_from_dataframe(data.reset_index(), table_id, job_config=job_config)
+        job.result()  # Esperar hasta que se termine de subir
+        print(f"Data para {ticker} fue subida a BigQuery.")
+
+# Create or check if the dataset exists
+dataset_id = 'tickers'
+crear_dataset_si_no_existe(dataset_id)
+
+# Fetch tickers and save their data to BigQuery
+tickers = obtener_empresas_nasdaq100()
+for ticker in tickers:
+    guardar_data_en_BigQuery(ticker, dataset_id)
+```
+
+Podemos ir viendo desde la Consola, actualizando la página, cómo va creando tablas nuevas.
+
+![1716014423417](image/README/1716014423417.png)
