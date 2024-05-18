@@ -34,12 +34,12 @@ Para ello se implementará una infraestructura en la nube utilizando:
   * [Usar un Jupyter Server para comenzar a trabajar con Python](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#usar-un-jupyter-server-para-comenzar-a-trabajar-con-python)
 * [Paso 2: Webscraping y uso de yfinance para obtener capitalización bursátil](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#paso-2-webscraping-y-uso-de-yfinance-para-obtener-capitalizaci%C3%B3n-burs%C3%A1til)
 
-  * Webscraping para obtener las companías que componen el índice Nasdaq-100
-  * Uso de la biblioteca Yfinance
-* Paso 3: Conectando a BigQuery
+  * [Webscraping para obtener las companías que componen el índice Nasdaq-100](https://github.com/datacloudclub/GCP-Asesor_financiero#webscraping-para-obtener-las-compan%C3%ADas-que-componen-el-%C3%ADndice-nasdaq-100)
+  * [Uso de la biblioteca Yfinance](https://github.com/datacloudclub/GCP-Asesor_financiero#uso-de-la-biblioteca-yfinance)
+* [Paso 3: Conectando a BigQuery](https://github.com/datacloudclub/GCP-Asesor_financiero#creando-cuenta-de-servicios-para-ingresar-a-bigquery-desde-la-instancia)
 
-  * Creando cuenta de servicios para ingresar a BigQuery desde la instancia
-  * Cargar data a BigQuery desde la VM
+  * [Creando cuenta de servicios para ingresar a BigQuery desde la instancia](https://github.com/datacloudclub/GCP-Asesor_financiero#creando-cuenta-de-servicios-para-ingresar-a-bigquery-desde-la-instancia)
+  * [Cargar data a BigQuery desde la VM](https://github.com/datacloudclub/GCP-Asesor_financiero#cargar-data-a-bigquery-desde-la-vm)
   * Conexión de BigQuery con Looker y PowerBI
 * Paso 4: CI/CD con Cloud Functions
 
@@ -349,7 +349,7 @@ A partir de una tabla en la [página de Wikipedia de Nasdaq-100](https://en.wiki
 
 Mediante el siguiente código, elaboramos una función en Python `obtener_empresas_nasdaq100()` con el propósito de crear un DataFrame '`df`' de Pandas a partir de la columna '`Ticker`' de la tabla '`constituients`'.
 
-```
+```python
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -379,7 +379,7 @@ Así habremos hecho webscraping de una tabla de Wikipedia, una muy buena fuente 
 
 Ejemplo de uso de la biblioteca Yfinance para averiguar la cotización actual de un determinado Ticker, en este caso AAPL:
 
-```
+```python
 import yfinance as yf
 
 # Definir el símbolo del activo que deseas obtener
@@ -399,7 +399,7 @@ print("Cotización actual de", symbol, ":", current_quote['Close'].iloc[0])
 
 Para conocer a fondo toda la información que provee Yfinance acerca de un Ticker, es la propiedad `.info` que nos devuelve un diccionario.
 
-```
+```python
 yf.Ticker("AAPL").info
 ```
 
@@ -407,7 +407,7 @@ yf.Ticker("AAPL").info
 
 Para conocer toda la cotización histórica:
 
-```
+```python
 yf.Ticker("AAPL").history(period="max")
 ```
 
@@ -502,12 +502,14 @@ Luego podemos subir el archivo usando Jupyter Lab
 
 ![1716014269025](image/README/1716014269025.png)
 
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
 ### Cargar data a BigQuery desde la VM
 
-Ya en un Jupyter Lab dentro de la instancia, podemosPara instalar la biblioteca de BigQuery:
+Ya en un Jupyter Lab dentro de la instancia, podemos instalar la biblioteca de BigQuery:
 
 ```
-pip google-cloud-bigquery
+pip install google-cloud-bigquery
 ```
 
 ![1716012738043](image/README/1716012738043.png)
@@ -519,7 +521,7 @@ El siguiente código nos permite unificar todo lo obtenido hasta el momento:
 * Se crea un Dataset en BigQuery si no existe uno con ese nombre.
 * Se una tabla nueva por cada Ticker en BigQuery con el debido formato para cada columna.
 
-```
+```python
 import os
 from google.cloud import bigquery
 import yfinance as yf
@@ -590,3 +592,5 @@ for ticker in tickers:
 Podemos ir viendo desde la Consola, actualizando la página, cómo va creando tablas nuevas.
 
 ![1716014423417](image/README/1716014423417.png)
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
