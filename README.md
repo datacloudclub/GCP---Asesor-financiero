@@ -579,11 +579,11 @@ def guardar_data_en_BigQuery(ticker, dataset_id):
         job.result()  # Esperar hasta que se termine de subir
         print(f"Data para {ticker} fue subida a BigQuery.")
 
-# Create or check if the dataset exists
+# Verificando si existe el dataset
 dataset_id = 'tickers'
 crear_dataset_si_no_existe(dataset_id)
 
-# Fetch tickers and save their data to BigQuery
+# Obtener tickers y guardar data en BigQuery
 tickers = obtener_empresas_nasdaq100()
 for ticker in tickers:
     guardar_data_en_BigQuery(ticker, dataset_id)
