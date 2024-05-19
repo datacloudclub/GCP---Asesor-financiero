@@ -41,7 +41,8 @@ Para ello se implementará una infraestructura en la nube utilizando:
   * [Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via `gcloud`)](https://github.com/datacloudclub/GCP-Asesor_financiero#crear-una-cuenta-de-servicio-que-permita-editar-y-hacer-queries-a-bigquery-via-gcloud)
   * [Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via Consola)](https://github.com/datacloudclub/GCP-Asesor_financiero#crear-una-cuenta-de-servicio-que-permita-editar-y-hacer-queries-a-bigquery-via-consola)
   * [Cargar data a BigQuery desde la VM](https://github.com/datacloudclub/GCP-Asesor_financiero#cargar-data-a-bigquery-desde-la-vm)
-  * Conexión de BigQuery con Looker y PowerBI
+  * Conexión de BigQuery con Looker
+  * Conexión de BigQuery con PowerBI
 * Paso 4: CI/CD con Cloud Functions
 
   * Utilizar Cloud Functions para actualizar la base de datos diariamente
@@ -590,5 +591,51 @@ for ticker in tickers:
 Podemos ir viendo desde la Consola, actualizando la página, cómo va creando tablas nuevas.
 
 ![1716014423417](image/README/1716014423417.png)
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+### Conexión de BigQuery con Looker Studio
+
+Ingresamos a la página de Looker: [https://lookerstudio.google.com/](https://lookerstudio.google.com/)
+
+![1716142001849](image/README/1716142001849.png)
+
+Hacemos click en "Informe vacío" para crear un nuevo informe y completamos los datos que nos pide
+
+![1716142063796](image/README/1716142063796.png)
+
+![1716142086953](image/README/1716142086953.png)
+
+Cuando nos pide al ingresar la fuente de los datos, buscamos BigQuery:
+
+![1716142141549](image/README/1716142141549.png)
+
+Damos autorización:
+
+![1716142162956](image/README/1716142162956.png)
+
+Y elegimos las tablas que queremos agregar a nuestro informe.
+
+![1716151648930](image/README/1716151648930.png)
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+### Conexión de BigQuery con PowerBI
+
+Dentro de un informe en PowerBI, desplegamos el menú Archivo > Obtener datos > Obtener datos para empezar:
+
+![1716151966014](image/README/1716151966014.png)
+
+Podemos delimitar la búsqueda podemos poner "big" en la caja de búsqueda
+
+![1716152164031](image/README/1716152164031.png)
+
+En opciones avanzadas es posible ajustar más parámetros para integrar información de distintos proyectos en GCP. Por ahora simplemente hacemos click en `Aceptar`.
+
+![1716152188867](image/README/1716152188867.png)
+
+En el Navegador, vamos a desplegar la carpeta Google BigQuery, tenemos la carpeta de datasets con data pública de BigQuery y dentro de la carpeta de nuestro proyecto, el dataset tickers con cada una de las tablas con los valores históricos de los tickers para elegir.
+
+![1716152129841](image/README/1716152129841.png)
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
