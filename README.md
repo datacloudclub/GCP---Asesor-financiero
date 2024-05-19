@@ -4,7 +4,7 @@
 
 ## Objetivo
 
-Generar una propuesta de valor a través de la ingesta de datos históricos y en tiempo real de la valorización bursátil de las 10 empresas más importantes de NASDAQ-100.
+Generar una propuesta de valor a través de la ingesta de datos históricos y en tiempo real de la valorización bursátil de las empresas del índice NASDAQ-100.
 
 Para ello se implementará una infraestructura en la nube utilizando:
 
@@ -27,8 +27,8 @@ Para ello se implementará una infraestructura en la nube utilizando:
 * [Aclaración sobre posibles gastos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#aclaraci%C3%B3n-sobre-posibles-gastos)
 * [Paso 1: Preparación de la VM](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#paso-1-preparaci%C3%B3n-de-la-vm)
 
-  * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
   * [Instalación de Gcloud CLI](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#instalaci%C3%B3n-gcloud-cli)
+  * [Creación de una instancia de máquina virtual](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#creaci%C3%B3n-de-una-instancia-de-m%C3%A1quina-virtual)
   * [Conexión remota mediante SSH](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#conexi%C3%B3n-mediante-ssh)
   * [Instalación del entorno de Anaconda en la instancia](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#instalaci%C3%B3n-del-entorno-de-anaconda-en-la-instancia)
   * [Usar un Jupyter Server para comenzar a trabajar con Python](https://github.com/datacloudclub/GCP-Asesor_financiero/tree/main#usar-un-jupyter-server-para-comenzar-a-trabajar-con-python)
@@ -38,7 +38,8 @@ Para ello se implementará una infraestructura en la nube utilizando:
   * [Uso de la biblioteca Yfinance](https://github.com/datacloudclub/GCP-Asesor_financiero#uso-de-la-biblioteca-yfinance)
 * [Paso 3: Conectando a BigQuery](https://github.com/datacloudclub/GCP-Asesor_financiero#creando-cuenta-de-servicios-para-ingresar-a-bigquery-desde-la-instancia)
 
-  * [Creando cuenta de servicios para ingresar a BigQuery desde la instancia](https://github.com/datacloudclub/GCP-Asesor_financiero#creando-cuenta-de-servicios-para-ingresar-a-bigquery-desde-la-instancia)
+  * [Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via `gcloud`)]()
+  * Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via Consola)
   * [Cargar data a BigQuery desde la VM](https://github.com/datacloudclub/GCP-Asesor_financiero#cargar-data-a-bigquery-desde-la-vm)
   * Conexión de BigQuery con Looker y PowerBI
 * Paso 4: CI/CD con Cloud Functions
@@ -171,6 +172,16 @@ De las estrategias empleadas en el presente proyecto, esperamos que puedan apren
 
 El primer paso implica la creación de una instancia de VM, cómo conectarse de manera remota a ella y la instalación del entorno Anaconda para comenzar a trabajar en un Jupyter Lab con Python directamente desde el entorno cloud.
 
+### Instalación Gcloud CLI en local
+
+Es necesario instalar en nuestra PC para poder conectarnos con los servicios en GCP:
+
+* Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para acceder a la cuenta de GCP desde la Terminal.
+* Documentación oficial para instalar Gcloud CLI: [Instala Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk?hl=es-419)
+* Si necesitás una guía paso a paso de cómo hacer esto: [Descarga e instalación de Gcloud CLI para conectarme de manera remota a los servicios en la nube](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/gcloud_cli_install.md).
+
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
 ### Creación de una instancia de máquina virtual
 
 * Para crear una instancia de VM: [Cómo crear una máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_crear_vm.md)
@@ -212,27 +223,15 @@ gcloud compute instances create yfinance-vm --zone=us-central1-a --machine-type=
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
-### Instalación Gcloud CLI en local
-
-Es necesario instalar en nuestra PC para poder conectarnos con los servicios en GCP:
-
-* Gcloud CLI, la interfaz línea de comandos (CLI en inglés) de Gcloud para acceder a la cuenta de GCP desde la Terminal.
-* Documentación oficial para instalar Gcloud CLI: [Instala Google Cloud CLI](https://cloud.google.com/sdk/docs/install-sdk?hl=es-419)
-* Si necesitás una guía paso a paso de cómo hacer esto: [Descarga e instalación de Gcloud CLI para conectarme de manera remota a los servicios en la nube](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/gcloud_cli_install.md).
-
-Y las siguientes extensiones para Visual Studio Code:
-
-* [Remote - SSH para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
-* [Remote - SSH: editor de archivos de configuración para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
-* [Remote Explorer para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
-
-[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
-
 ### Conexión mediante SSH
 
 Necesitamos generar las credenciales que nos permitan conectarnos a la instancia mediante canal SSH (Secure Shell), un protocolo de red que permite el acceso remoto a través de una conexión cifrada.
 
-* Para saber más sobre cómo conectarse vía SSH: [Cómo conectarse a la instancia vía SSH](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/conexion_ssh.md)
+* Para configurar la conexión remota a la instancia vía SSH: [Cómo conectarse a la instancia vía SSH](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/conexion_ssh.md)
+* Para acceder via SSH con Visual Studio Code:
+  * [Remote - SSH para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
+  * [Remote - SSH: editor de archivos de configuración para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
+  * [Remote Explorer para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
@@ -297,17 +296,7 @@ Y luego nos conectamos nuevamente a la VM con `ssh yfinance` y nótese cómo aho
 
 ### Usar un Jupyter Server para comenzar a trabajar con Python
 
-Al inciar un Jupyter Server, el mismo utiliza el puerto 8888 en la VM. Para que podamos utilizar el puerto y conectarnos desde nuestra computadora local utilizando nuestro navegador al Jupyter server, debemos hacer *port forwarding*: vincular el puerto de la VM con el puerto en nuestra PC.
-
-Para ello, desde la Terminal en nuestra PC, nos conectamos con la instancia con el comando `ssh` con la siguiente modificación: `ssh -L 8888:localhost:8888 yfinance`, de manera que el puerto 8888 de la instancia se vea reflejado a través de localhost:8888 en local.
-
-```
-ssh -L 8888:localhost:8888 yfinance
-```
-
-![1715320672821](image/README/1715320672821.png)
-
-Ya dentro de la VM, debemos iniciar Jupyter, con el comando `jupyter lab`
+Dentro de la instancia, ejecutamos `jupyter lab` para iniciar un servidor Jupyter para poder trabajar en Python
 
 ![1715320713774](image/README/1715320713774.png)
 
@@ -335,7 +324,7 @@ Y ya tenemos entorno de Jupyter para trabajar con Python en nuestra VM:
 
 ## Paso 2: Webscraping y uso de yfinance para obtener capitalización bursátil
 
-El segundo paso empieza con la obtención de las primeras 100 empresas mediante webscraping.
+El segundo paso empieza con la obtención de los Tickers de las empresas mediante webscraping.
 
 ### Webscraping para obtener las companías que componen el índice Nasdaq-100
 
@@ -343,7 +332,7 @@ Utilizaremos las librerías BeautifulSoup para hacer webscraping, Pandas e IO. D
 
 Buscamos obtener el listado de Tickers, es decir, las siglas de las empresas que constituyen el índice.
 
-A partir de una tabla en la [página de Wikipedia de Nasdaq-100](https://en.wikipedia.org/wiki/Nasdaq-100), bajo el subtítulo de "Components" encontramos la tabla cuyo '`id`' es '`constituents`' que corresponde a la tabla que constituyen el índice. Ahí vemos la columna `Ticker` correspondiente a la sigla de la empresa.
+A partir de una tabla en la [página de Wikipedia de Nasdaq-100](https://en.wikipedia.org/wiki/Nasdaq-100), bajo el subtítulo de "Components" encontramos la tabla cuyo '`id`' es '`constituents`' que corresponde a la tabla que constituyen el índice. Ahí vemos la columna `Ticker`.
 
 ![1716003233314](image/README/1716003233314.png)
 
@@ -419,7 +408,7 @@ En el próximo paso, vamos a construir un dataset dentro de BigQuery y dentro de
 
 ## Paso 3: Conectando a BigQuery
 
-El tercer paso requiere de otorgar permisos para acceder y editar BigQuery por parte de la instancia de VM. 
+El tercer paso requiere de otorgar permisos para acceder y editar BigQuery por parte de la instancia de VM.
 
 Primero accedemos a BigQuery a través de la Consola para habilitar todas las APIs necesarias.
 
@@ -430,42 +419,50 @@ Primero accedemos a BigQuery a través de la Consola para habilitar todas las AP
 
 Esto se debe a que cada servicio está aislado y es independiente del otro. Se requiere permisos especiales para que desde una instancia de VM se pueda modificar BigQuery.
 
-En GCP se utilizan las Cuentas de Servicio dentro de IAM, que son "cuentas ficticias" con las que se habilita a un servicio a tener permisos de acceder, editar, eliminar recursos de otros servicios.
+En GCP se utilizan las Cuentas de Servicio dentro de IAM, que son "cuentas ficticias" con las que se habilita a un servicio a tener permisos de acceder, editar o eliminar recursos de otros servicios.
 
-### Creando cuenta de servicios para ingresar a BigQuery desde la instancia
+### Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via `gcloud`)
 
 Desde una nueva terminal primero creamos la cuenta de servicio como dice en la documentación:
 
 ![1716013682860](image/README/1716013682860.png)
 
+* Primero creamos la cuenta de servicio:
+
 ```
 gcloud iam service-accounts create mi-cuenta-servicio --display-name "bigquery-vm"
 ```
 
+* Debemos asigar dos roles a la cuenta de servicio que le permitirán interactuar con BigQuery:
+
+  * Editor de datos de BigQuery
+  * Usuario de trabajo de BigQuery
 
 ```
 gcloud projects add-iam-policy-binding ID_TU_PROYECTO --member "serviceAccount:bigquery-vm@ID_TU_PROYECTO.iam.gserviceaccount.com" --role "roles/bigquery.dataEditor"
 gcloud projects add-iam-policy-binding ID_TU_PROYECTO --member "serviceAccount:bigquery-vm@ID_TU_PROYECTO.iam.gserviceaccount.com" --role "roles/bigquery.jobUser"
 ```
 
-Luego debemos crear una llave en forma de archivo JSON con las credenciales.
+* Luego debemos crear una llave en forma de archivo JSON con las credenciales.
 
 ```
 gcloud iam service-accounts keys create key.json --iam-account vm-bigquery@molten-precinct-421420.iam.gserviceaccount.com
 ```
 
-Esto creará un archivo `key.json` en la carpeta que estemos en la terminal. Debemos subir ese archivo a la VM. Creamos la carpeta `keys` y otorgamos permisos de escritura
+* Esto creará un archivo `key.json` en la carpeta que estemos en la terminal. Debemos subir ese archivo a la VM. Creamos la carpeta `keys` y otorgamos permisos de escritura
 
 ```
 ssh yfinance mkdir keys
 ssh yfinance sudo chmod o+w keys
 ```
 
-Y copiamos el archivo a la carpeta keys dentro de la instancia:
+* Y copiamos el archivo a la carpeta keys dentro de la instancia:
 
 ```
 scp key.json yfinance:keys/key.json
 ```
+
+### Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via Consola)
 
 Alternativamente por Consola, en IAM y administración, vamos a cuenta de servicio:
 
@@ -482,7 +479,7 @@ Le asignamos un nombre y la creamos:
 Se agregan los roles de:
 
 * Editor de datos de BigQuery
-* Usuario de trabajos
+* Usuario de trabajo de BigQuery
 
 ![1716013849811](image/README/1716013849811.png)
 
@@ -498,7 +495,7 @@ En Claves, Agregar Clave y Crear clave nueva para crear una clave JSON que gener
 
 ![1716014206034](image/README/1716014206034.png)
 
-Luego podemos subir el archivo usando Jupyter Lab
+Luego podemos subir el archivo a la VM usando Jupyter Lab, creamos la carpeta keys y subimos el archivo dentro de la carpeta.
 
 ![1716014269025](image/README/1716014269025.png)
 
@@ -517,9 +514,8 @@ pip install google-cloud-bigquery
 El siguiente código nos permite unificar todo lo obtenido hasta el momento:
 
 * Hacer webscraping a la tabla de Wikipedia con todos los Tickers de Nasdaq-100.
-* Crear un dataset por cada Ticker con todos sus valores históricos.
-* Se crea un Dataset en BigQuery si no existe uno con ese nombre.
-* Se una tabla nueva por cada Ticker en BigQuery con el debido formato para cada columna.
+* Se crea un Dataset en BigQuery si no existe uno llamado "Ticker".
+* Se crea una tabla nueva por cada Ticker en BigQuery con el debido formato para cada columna.
 
 ```python
 import os
