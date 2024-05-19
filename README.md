@@ -38,8 +38,8 @@ Para ello se implementará una infraestructura en la nube utilizando:
   * [Uso de la biblioteca Yfinance](https://github.com/datacloudclub/GCP-Asesor_financiero#uso-de-la-biblioteca-yfinance)
 * [Paso 3: Conectando a BigQuery](https://github.com/datacloudclub/GCP-Asesor_financiero#creando-cuenta-de-servicios-para-ingresar-a-bigquery-desde-la-instancia)
 
-  * [Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via `gcloud`)]()
-  * Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via Consola)
+  * [Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via `gcloud`)](https://github.com/datacloudclub/GCP-Asesor_financiero#crear-una-cuenta-de-servicio-que-permita-editar-y-hacer-queries-a-bigquery-via-gcloud)
+  * [Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via Consola)](https://github.com/datacloudclub/GCP-Asesor_financiero#crear-una-cuenta-de-servicio-que-permita-editar-y-hacer-queries-a-bigquery-via-consola)
   * [Cargar data a BigQuery desde la VM](https://github.com/datacloudclub/GCP-Asesor_financiero#cargar-data-a-bigquery-desde-la-vm)
   * Conexión de BigQuery con Looker y PowerBI
 * Paso 4: CI/CD con Cloud Functions
