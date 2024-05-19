@@ -41,8 +41,8 @@ Para ello se implementará una infraestructura en la nube utilizando:
   * [Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via `gcloud`)](https://github.com/datacloudclub/GCP-Asesor_financiero#crear-una-cuenta-de-servicio-que-permita-editar-y-hacer-queries-a-bigquery-via-gcloud)
   * [Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via Consola)](https://github.com/datacloudclub/GCP-Asesor_financiero#crear-una-cuenta-de-servicio-que-permita-editar-y-hacer-queries-a-bigquery-via-consola)
   * [Cargar data a BigQuery desde la VM](https://github.com/datacloudclub/GCP-Asesor_financiero#cargar-data-a-bigquery-desde-la-vm)
-  * Conexión de BigQuery con Looker
-  * Conexión de BigQuery con PowerBI
+  * [Conexión de BigQuery con Looker Studio](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#conexi%C3%B3n-de-bigquery-con-looker-studio)
+  * [Conexión de BigQuery con PowerBI](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#conexi%C3%B3n-de-bigquery-con-powerbi)
 * Paso 4: CI/CD con Cloud Functions
 
   * Utilizar Cloud Functions para actualizar la base de datos diariamente
@@ -639,3 +639,7 @@ En el Navegador, vamos a desplegar la carpeta Google BigQuery, tenemos la carpet
 ![1716152129841](image/README/1716152129841.png)
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
+## Paso 4: CI/CD con Cloud Functions
+
+El cuarto paso consiste en crear una función que diariamente actualice e incorpore los valores diarios a cada una de las tablas correspondientes.
