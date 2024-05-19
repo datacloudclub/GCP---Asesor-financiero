@@ -462,6 +462,8 @@ ssh yfinance sudo chmod o+w keys
 scp key.json yfinance:keys/key.json
 ```
 
+[volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
+
 ### Crear una Cuenta de Servicio que permita editar y hacer queries a BigQuery (via Consola)
 
 Alternativamente por Consola, en IAM y administración, vamos a cuenta de servicio:
