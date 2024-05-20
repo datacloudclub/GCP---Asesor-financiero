@@ -185,10 +185,10 @@ Es necesario instalar en nuestra PC para poder conectarnos con los servicios en 
 
 ### Creación de una instancia de máquina virtual
 
-* Para crear una instancia de VM: [Cómo crear una máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_crear_vm.md)
-* Para administrar una instancia ya creada de VM, cómo se detiene, edita, elimina o inicia: [Administrar una instancia de máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/modificar_instancia.md)
+* Para ver la guía acerca de cómo crear una instancia de VM: [Cómo crear una máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/como_crear_vm.md)
+* Para ver la guía acerca de cómo administrar una instancia ya creada, cómo se detiene, edita, elimina o inicia: [Administrar una instancia de máquina virtual](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/modificar_instancia.md)
 
-Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instancia" para crear una nueva máquina virtual con las siguientes características:
+Para crear una instancia desde la Consola de GCP, vamos al menú de navegación, dentro de Compute Engine > Instancias de VM > "Crear Instancia" para crear una nueva máquina virtual con las siguientes características:
 
 * **Nombre:** yfinance-vm (sugerencia)
 * **Región**: us-central1 (Iowa)
@@ -200,7 +200,7 @@ Dentro de Compute Engine, en Instancias de VM, hacemos click sobre "Crear Instan
 * **Tamaño (GB):** 30
 * **IP externa fija:** yfinance-vm-ip (sugerencia)
 
-En una ventana de la Terminal, ejecutamos el siguiente comando de `gcloud`, para reservar una dirección ip estática:
+Alternativamente, desde una ventana de Terminal, ejecutamos el siguiente comando de `gcloud` para reservar una dirección ip estática:
 
 ```
 gcloud compute addresses create yfinance-ip --region us-central1
@@ -229,10 +229,22 @@ gcloud compute instances create yfinance-vm --zone=us-central1-a --machine-type=
 Necesitamos generar las credenciales que nos permitan conectarnos a la instancia mediante canal SSH (Secure Shell), un protocolo de red que permite el acceso remoto a través de una conexión cifrada.
 
 * Para configurar la conexión remota a la instancia vía SSH: [Cómo conectarse a la instancia vía SSH](https://github.com/datacloudclub/datacloudclub/blob/main/Google%20Cloud%20Platform%20(GCP)/Gu%C3%ADas/conexion_ssh.md)
-* Para acceder via SSH con Visual Studio Code:
-  * [Remote - SSH para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)
-  * [Remote - SSH: editor de archivos de configuración para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh-edit)
-  * [Remote Explorer para VSC](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
+
+La presente configuración (siguiendo las indicaciones de la guía mencionada) del archivo `config` para la conexión SSH será:
+
+```
+Host yfinance
+    HostName 35.208.82.103
+    User DCC
+    IdentityFile C:/users/juanp/.ssh/gcp
+    LocalForward 8888 localhost:8888
+```
+
+De manera tal de poder acceder a la instancia mediante:
+
+```
+ssh yfinance
+```
 
 [volver a la Tabla de contenidos](https://github.com/datacloudclub/GCP-Asesor_financiero?tab=readme-ov-file#tabla-de-contenidos)
 
